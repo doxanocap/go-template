@@ -1,0 +1,1 @@
+pg_dsn: postgres://postgres:eldoseldos@localhost:5432/hitba?sslmode=disable
