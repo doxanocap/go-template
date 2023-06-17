@@ -10,8 +10,8 @@ func InitConf() {
 	viper.SetDefault("isJson", false)
 	viper.SetDefault("EnvMode", "development")
 	viper.SetConfigName("config")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("../../../")
+	viper.SetConfigType("yml")
+	viper.AddConfigPath("./config")
 
 	err := viper.ReadInConfig()
 	if err != nil {

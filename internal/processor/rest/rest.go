@@ -1,17 +1,18 @@
 package rest
 
 import (
+	"app/internal/processor/rest/utils"
 	"sync"
 )
 
 type REST struct {
-	handler       *Handler
+	handler       *utils.Handler
 	handlerRunner sync.Once
 
-	controllers       *Controllers
+	controllers       *utils.Controllers
 	controllersRunner sync.Once
 
-	middlewares       *Middlewares
+	middlewares       *utils.Middlewares
 	middlewaresRunner sync.Once
 }
 
@@ -19,23 +20,24 @@ func Init() *REST {
 	return &REST{}
 }
 
-func (r *REST) Handler() *Handler {
+func (r *REST) Handler() *utils.Handler {
 	r.handlerRunner.Do(func() {
-		r.handler = InitHandler()
+		r.handler = utils.InitHandler()
+		r.handler.AddRoutesV1()
 	})
 	return r.handler
 }
 
-func (r *REST) Controllers() *Controllers {
+func (r *REST) Controllers() *utils.Controllers {
 	r.controllersRunner.Do(func() {
-		r.controllers = InitControllers()
+		r.controllers = utils.InitControllers()
 	})
 	return r.controllers
 }
 
-func (r *REST) Middlewares() *Middlewares {
+func (r *REST) Middlewares() *utils.Middlewares {
 	r.middlewaresRunner.Do(func() {
-		r.middlewares = InitMiddlewares()
+		r.middlewares = utils.InitMiddlewares()
 	})
 	return r.middlewares
 }

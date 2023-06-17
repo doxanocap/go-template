@@ -1,4 +1,4 @@
-package rest
+package utils
 
 import (
 	"github.com/gin-contrib/cors"
@@ -6,20 +6,11 @@ import (
 	"net/http"
 )
 
-type Handler struct {
-	Engine *gin.Engine
-}
-
-func InitHandler() *Handler {
-	return &Handler{}
-}
-
-func (h *Handler) InitEngine(env string) {
+func InitEngine(env string) *gin.Engine {
 	setGinMode(env)
 
 	router := gin.New()
 	router.Use(gin.Recovery())
-	// todo: cors from app config
 	router.RedirectTrailingSlash = true
 	corsConfig := cors.Config{
 		AllowOriginFunc: func(origin string) bool { return true },
@@ -40,16 +31,7 @@ func (h *Handler) InitEngine(env string) {
 	}
 	router.Use(cors.New(corsConfig))
 
-	h.Engine = router
-}
-
-func (h *Handler) AddRoutes() {
-	v1 := h.Engine.Group("/v1")
-
-	v1.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, "pong")
-	})
-
+	return router
 }
 
 func setGinMode(env string) {

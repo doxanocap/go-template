@@ -1,0 +1,7 @@
+port: 8080
+
+env: 'production'
+isProd: false
+isJSON: false
+
+pg_dsn: postgres://postgres:eldoseldos@localhost:5432/hitba?sslmode=disable
