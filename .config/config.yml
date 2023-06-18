@@ -1,0 +1,34 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: circleci/golang:1.20
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
+
+      - run:
+          name: Install Dependencies
+          command: go mod download
+      - save_cache:
+          key: go-mod-v4-{{ checksum "go.sum" }}
+          paths:
+            - "/project/mod"
+
+      - run:
+          name: Run build
+          command: |
+            mkdir -p /project/artifacts/build
+            go build -ldflags "-s -w" -o exec main.go
+            mv exec /project/artifacts/build
+      - store_artifacts:
+          path: /project/artifacts/build
+
+workflows:
+  ci:
+    jobs:
+      - build
