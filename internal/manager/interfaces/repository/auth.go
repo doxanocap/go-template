@@ -1,5 +1,5 @@
 package repository
 
 // interfaces repo
-type IAutRepository interface {
+type IAuthRepository interface {
 }

@@ -1,27 +1,40 @@
 package manager
 
 import (
-	"app/internal/manager/interfaces/service"
-	service2 "app/internal/service"
+	"app/internal/manager/interfaces"
+	IService "app/internal/manager/interfaces/service"
+	"app/internal/service"
 	"sync"
 )
 
 type ServiceManager struct {
-	repo *RepositoryManager
+	repo interfaces.IRepository
+	proc interfaces.IProcessor
 
-	auth       service.IAuthService
+	auth       IService.IAuthService
 	authRunner sync.Once
+
+	storage       IService.IStorageService
+	storageRunner sync.Once
 }
 
-func InitServiceManager(repo *RepositoryManager) *ServiceManager {
+func InitServiceManager(repo interfaces.IRepository, proc interfaces.IProcessor) *ServiceManager {
 	return &ServiceManager{
 		repo: repo,
+		proc: proc,
 	}
 }
 
-func (s *ServiceManager) Auth() service.IAuthService {
+func (s *ServiceManager) Auth() IService.IAuthService {
 	s.authRunner.Do(func() {
-		s.auth = service2.InitAuthService(s.repo)
+		s.auth = service.InitAuthService(s.repo)
 	})
 	return s.auth
+}
+
+func (s *ServiceManager) Storage() IService.IStorageService {
+	s.storageRunner.Do(func() {
+		s.storage = service.InitStorageService(s.repo, s.proc)
+	})
+	return s.storage
 }

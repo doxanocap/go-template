@@ -1,7 +1,7 @@
 package manager
 
 import (
-	IRepo "app/internal/manager/interfaces/repository"
+	IRepository "app/internal/manager/interfaces/repository"
 	"app/internal/repository"
 	"app/pkg/logger"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -11,8 +11,11 @@ import (
 type RepositoryManager struct {
 	pool *pgxpool.Pool
 
-	auth     IRepo.IAutRepository
-	authInit sync.Once
+	auth       IRepository.IAuthRepository
+	authRunner sync.Once
+
+	storage       IRepository.IStorageRepository
+	storageRunner sync.Once
 }
 
 func InitRepositoryManager(pool *pgxpool.Pool) *RepositoryManager {
@@ -21,9 +24,16 @@ func InitRepositoryManager(pool *pgxpool.Pool) *RepositoryManager {
 	}
 }
 
-func (r *RepositoryManager) Auth() IRepo.IAutRepository {
-	r.authInit.Do(func() {
+func (r *RepositoryManager) Auth() IRepository.IAuthRepository {
+	r.authRunner.Do(func() {
 		r.auth = repository.InitAuthRepository(r.pool, logger.Log.Named("[REPOSITORY][AUTH]"))
 	})
 	return r.auth
+}
+
+func (r *RepositoryManager) Storage() IRepository.IStorageRepository {
+	r.storageRunner.Do(func() {
+		r.storage = repository.InitStorageRepository(r.pool, logger.Log.Named("[REPOSITORY][STORAGE]"))
+	})
+	return r.storage
 }

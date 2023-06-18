@@ -1,7 +1,7 @@
 package interfaces
 
-type Manager interface {
+type IManager interface {
 	Processor() IProcessor
 	Service() IService
-	Repo() IRepository
+	Repository() IRepository
 }

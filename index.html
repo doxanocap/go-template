@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload</title>
+</head>
+<body>
+<h1>Image Upload</h1>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="imageInput" name="image" accept="image/*" />
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    const uploadForm = document.getElementById('uploadForm');
+    const imageInput = document.getElementById('imageInput');
+
+    uploadForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const formData = new FormData();
+        console.log(imageInput)
+        formData.append('image', imageInput.files[0]);
+
+        fetch('http://localhost:8080/v1/storage/product', {
+            method: 'POST',
+            body: formData,
+        }).then(response => response.json())
+          .then(data => {
+            // Handle the response from the server
+            console.log(data);
+          })
+          .catch(error => {
+            // Handle any error that occurred during the request
+            console.error(error);
+          });
+    });
+</script>
+</body>
+</html>

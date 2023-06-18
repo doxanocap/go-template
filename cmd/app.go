@@ -11,15 +11,13 @@ import (
 type App struct {
 	Server  *httpServer.Server
 	Manager *manager.Manager
+
+	pool *pgxpool.Pool
 }
 
-func InitApp(conn *pgxpool.Pool) *App {
-	app := &App{
-		Server:  httpServer.New(),
-		Manager: manager.InitManager(conn),
-	}
+func (app *App) Init() *App {
 
-	if err := app.Server.Run(app.Manager.Processor().REST().Handler().Engine); err != nil {
+	if err := app.Server.Run(app.Manager.Processor().REST().Handler().Engine()); err != nil {
 		logger.Log.Fatal("failed to run REST: %v", zap.Error(err))
 	}
 

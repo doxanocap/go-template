@@ -6,7 +6,7 @@ import (
 )
 
 type AuthService struct {
-	authRepo repository.IAutRepository
+	authRepo repository.IAuthRepository
 }
 
 func InitAuthService(repo interfaces.IRepository) *AuthService {
