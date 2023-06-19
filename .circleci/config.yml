@@ -1,13 +1,6 @@
 version: 2.1
 
 jobs:
-#  lint:
-#    docker:
-#      - image: golangci/golangci-lint:v1.37-alpine
-#    steps:
-#      - checkout
-#      - run: golangci-lint run
-
   build:
     working_directory: ~/project/go/src
     docker:
@@ -53,6 +46,5 @@ jobs:
 workflows:
   build-and-sync:
     jobs:
-#      - lint
       - build
       - deploy-prod
