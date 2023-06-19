@@ -1,34 +1,58 @@
 version: 2.1
 
 jobs:
-  build:
-    working_directory: ~/project
+  lint:
     docker:
-      - image: circleci/golang:1.20
+      - image: golangci/golangci-lint:v1.37-alpine
+    steps:
+      - checkout
+      - run: golangci-lint run
+
+  build:
+    working_directory: ~/project/go/src
+    docker:
+      - image: golang:1.20-alpine
     steps:
       - checkout
       - restore_cache:
           keys:
-            - go-mod-v4-{{ checksum "go.sum" }}
+            - go-mod-{{ checksum "go.sum" }}
 
       - run:
           name: Install Dependencies
           command: go mod download
       - save_cache:
-          key: go-mod-v4-{{ checksum "go.sum" }}
+          key: go-mod-{{ checksum "go.sum" }}
           paths:
-            - "/project/mod"
+            - ~/project/go/pkg/mod
 
       - run:
           name: Run build
-          command: |
-            mkdir -p /project/artifacts/build
-            go build -ldflags "-s -w" -o exec main.go
-            mv exec /project/artifacts/build
-      - store_artifacts:
-          path: /project/artifacts/build
+          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
+
+
+  deploy-prod:
+    docker:
+      - image: golang:1.20-alpine
+
+    working_directory: ~/project/go/src
+
+    steps:
+      - attach_workspace:
+          at: ~/project/go/src
+
+      - run: sudo apt update
+      - run: sudo apt install rsync sshpass -y
+
+      - run: mkdir ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+
+      - run: sshpass -e rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_BACK
+      - run: sshpass -e ssh $SSH_USER@$SSH_HOST /usr/bin ./portal
+
 
 workflows:
-  ci:
+  build-and-sync:
     jobs:
+      - lint
       - build
+      - deploy-prod

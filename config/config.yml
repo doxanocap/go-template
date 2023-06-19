@@ -4,7 +4,8 @@ ENV_MODE: 'develop'
 IS_PROD: false
 IS_JSON: false
 
-PG_DSN: postgres://postgres:eldoseldos@localhost:5432/portal?sslmode=disable
+#PG_DSN: postgres://postgres:eldoseldos@postgres:5432/portal?sslmode=disable
+PG_DSN: postgres://postgres:eldoseldos@postgres:5432/portal?sslmode=disable
 
 S3_ENDPOINT: "archive.pscloud.io"
 S3_ACCESS_KEY: "30ALB0CVRRFWXQLQYMN3"
