@@ -35,11 +35,11 @@ jobs:
     docker:
       - image: golang:1.20-alpine
 
-    working_directory: ~/project/go/src
+    working_directory: ~/project
 
     steps:
       - attach_workspace:
-          at: ~/project/go/src
+          at: ~/project
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
