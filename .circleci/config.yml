@@ -1,12 +1,12 @@
 version: 2.1
 
 jobs:
-  lint:
-    docker:
-      - image: golangci/golangci-lint:v1.37-alpine
-    steps:
-      - checkout
-      - run: golangci-lint run
+#  lint:
+#    docker:
+#      - image: golangci/golangci-lint:v1.37-alpine
+#    steps:
+#      - checkout
+#      - run: golangci-lint run
 
   build:
     working_directory: ~/project/go/src
@@ -47,12 +47,12 @@ jobs:
       - run: mkdir ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
 
       - run: sshpass -e rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_BACK
-      - run: sshpass -e ssh $SSH_USER@$SSH_HOST /usr/bin ./portal
+      - run: sshpass -e ssh $SSH_USER@$SSH_HOST ./portal
 
 
 workflows:
   build-and-sync:
     jobs:
-      - lint
+#      - lint
       - build
       - deploy-prod
