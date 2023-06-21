@@ -50,5 +50,7 @@ workflows:
   build-and-sync:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build
 
