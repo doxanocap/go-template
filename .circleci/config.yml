@@ -17,7 +17,7 @@ jobs:
       - save_cache:
           key: go-mod-{{ checksum "go.sum" }}
           paths:
-            - ~/project/go/pkg/mod
+            - ~/project/go/src
 
       - run:
           name: Run build
@@ -34,6 +34,7 @@ jobs:
       - attach_workspace:
           at: ~/project/go/src
 
+      - run: ll
       - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
 
       - run: sudo apt update
