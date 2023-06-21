@@ -28,9 +28,9 @@ jobs:
       - run: sudo apt install rsync sshpass -y
 
       - run: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
-      - run: sshpass -p "edAeqC4md5HsWN" -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
-      - run: sshpass -p "edAeqC4md5HsWN" -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal
-      - run: sshpass -p "edAeqC4md5HsWN" -v ssh $SSH_USER@$SSH_HOST sudo systemctl enable goportal
+      - run: sshpass -e -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
+      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal
+      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST sudo systemctl enable goportal
 
 workflows:
   build-and-sync:
