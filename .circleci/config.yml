@@ -21,7 +21,7 @@ jobs:
 
       - run:
           name: Run build
-          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
+          command: CGO_ENABLED=0 GO111MODULE=off GOOS=linux GOARCH=amd64 go build -o portal ./main.go
 
 
   deploy:
@@ -34,8 +34,7 @@ jobs:
       - attach_workspace:
           at: ~/project/go/src
 
-      - run: ls
-      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
+      - run: CGO_ENABLED=0 GO111MODULE=off GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
