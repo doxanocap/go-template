@@ -24,27 +24,36 @@ jobs:
           command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
 
 
-  deploy-prod:
+  deploy-dev:
     docker:
       - image: golang:1.20-alpine
 
-    working_directory: ~/project
+    working_directory: ~/project/go/src
 
     steps:
       - attach_workspace:
-          at: ~/project
+          at: ~/project/go/src
+
+      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
 
       - run: mkdir ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
 
-      - run: sshpass -e rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_BACK
-      - run: sshpass -e ssh $SSH_USER@$SSH_HOST ./portal
+      - run: sshpass -e rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/portal-services
+      - run: sshpass -e ssh $SSH_USER@$SSH_HOST systemctl start goportal.service && systemctl enable goportal.service
+
 
 
 workflows:
   build-and-sync:
     jobs:
       - build
-      - deploy-prod
+      - deploy-dev:
+          filters:
+            branches:
+              only:
+                - dev
+            requires:
+              - build
