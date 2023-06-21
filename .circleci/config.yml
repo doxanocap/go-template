@@ -8,10 +8,6 @@ jobs:
     steps:
       - checkout
       - run: go mod download
-      - run:
-          name: Run build
-          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
-
 
   deploy:
     docker:
@@ -24,6 +20,8 @@ jobs:
           at: ~/project/go/src
 
       - run: echo "start"
+
+      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
