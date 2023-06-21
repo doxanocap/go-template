@@ -20,21 +20,9 @@ jobs:
           paths:
             - ~/project
 
-
-  deploy:
-    docker:
-      - image: cimg/go:1.20.1-node
-
-    working_directory: ~/project
-
-    steps:
-      - attach_workspace:
-          at: ~/project
-
-
       - run:
           name: Run build
-          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
+          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./main.go
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
@@ -43,13 +31,7 @@ jobs:
       - run: sshpass -p "edAeqC4md5HsWN" -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
       - run: sshpass -p "edAeqC4md5HsWN" -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal.service && sudo systemctl enable goportal.service
 
-
-
 workflows:
   build-and-sync:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-
