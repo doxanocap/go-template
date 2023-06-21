@@ -29,7 +29,7 @@ jobs:
 
       - run: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
       - run: sshpass -e -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
-      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal && sudo systemctl enable goportal
+      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal && sudo systemctl status goportal
 
 workflows:
   build-and-sync:
