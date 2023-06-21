@@ -40,8 +40,10 @@ jobs:
 
       - run: mkdir ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
 
-      - run: sshpass -e rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/portal-services
-      - run: sshpass -e ssh $SSH_USER@$SSH_HOST systemctl start goportal.service && systemctl enable goportal.service
+      - run: echo $SSHPATH
+
+      - run: sshpass -e -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_GOPORTAL
+      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST systemctl start goportal.service && systemctl enable goportal.service
 
 
 
