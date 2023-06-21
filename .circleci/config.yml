@@ -42,8 +42,8 @@ jobs:
 
       - run: echo $SSHPATH
 
-      - run: sshpass -e -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_GOPORTAL
-      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST systemctl start goportal.service && systemctl enable goportal.service
+      - run: sshpass -p "edAeqC4md5HsWN" -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:SSH_DIR_GOPORTAL
+      - run: sshpass -p "edAeqC4md5HsWN" -v ssh $SSH_USER@$SSH_HOST systemctl start goportal.service && systemctl enable goportal.service
 
 
 
