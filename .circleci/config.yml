@@ -34,7 +34,7 @@ jobs:
       - attach_workspace:
           at: ~/project/go/src
 
-      - run: ll
+      - run: ls
       - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o goportal ./main.go
 
       - run: sudo apt update
