@@ -23,7 +23,8 @@ jobs:
       - attach_workspace:
           at: ~/project/go/src
 
-      - run: apt install -y sudo
+      - run: echo "start"
+        - 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
 
