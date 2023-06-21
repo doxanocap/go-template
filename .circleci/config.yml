@@ -27,7 +27,6 @@ jobs:
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
 
-      - run: mkdir ~/.ssh && ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
       - run: sshpass -p "edAeqC4md5HsWN" -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
       - run: sshpass -p "edAeqC4md5HsWN" -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal.service && sudo systemctl enable goportal.service
 
