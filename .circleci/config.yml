@@ -8,20 +8,9 @@ jobs:
     steps:
       - checkout
       - run: go mod download
-
-  deploy:
-    docker:
-      - image: golang:1.20-alpine
-
-    working_directory: ~/project/go/src
-
-    steps:
-      - attach_workspace:
-          at: ~/project/go/src
-
-      - run: echo "start"
-
-      - run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
+      - run:
+          name: Run build
+          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
 
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
@@ -33,11 +22,9 @@ jobs:
 
 
 
+
 workflows:
   build-and-sync:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
 
