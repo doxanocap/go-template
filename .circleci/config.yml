@@ -24,7 +24,7 @@ jobs:
           at: ~/project/go/src
 
       - run: echo "start"
-        - 
+
       - run: sudo apt update
       - run: sudo apt install rsync sshpass -y
 
