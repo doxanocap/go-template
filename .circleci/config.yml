@@ -7,7 +7,19 @@ jobs:
       - image: cimg/go:1.20.1-node
     steps:
       - checkout
-      - run: go mod download
+      - restore_cache:
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
+
+      - run:
+          name: Install Dependencies
+          command: go mod download
+
+      - save_cache:
+          key: go-mod-v4-{{ checksum "go.sum" }}
+          paths:
+            - ~/project/go/src
+
       - run:
           name: Run build
           command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
