@@ -24,7 +24,7 @@ jobs:
           command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
 
 
-  deploy-dev:
+  deploy:
     docker:
       - image: golang:1.20-alpine
 
@@ -50,10 +50,7 @@ workflows:
   build-and-sync:
     jobs:
       - build
-      - deploy-dev:
+      - deploy:
           filters:
-            branches:
-              only:
-                - dev
             requires:
               - build
