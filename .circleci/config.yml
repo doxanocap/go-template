@@ -7,8 +7,7 @@ jobs:
       - image: golang:1.20-alpine
     steps:
       - checkout
-      - run: go mod init app
-      - run: go mod tidy 
+      - run: go mod download
       - run:
           name: Run build
           command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o portal ./main.go
