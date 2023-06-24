@@ -3,9 +3,8 @@ package rest
 import (
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor/rest"
-	"app/internal/processor/rest/controllers"
 	"app/internal/processor/rest/handler"
-	"app/internal/processor/rest/middlewares"
+	"app/internal/processor/rest/runner"
 	"sync"
 )
 
@@ -30,21 +29,21 @@ func Init(manager interfaces.IManager) *REST {
 
 func (r *REST) Handler() rest.IHandlerManager {
 	r.handlerRunner.Do(func() {
-		r.handler = handler.InitHandler(r.manager)
+		r.handler = handler.InitHandler(r.controllers)
 	})
 	return r.handler
 }
 
 func (r *REST) Controllers() rest.IControllersManager {
 	r.controllersRunner.Do(func() {
-		r.controllers = controllers.InitControllers(r.manager)
+		r.controllers = runner.InitControllers(r.manager)
 	})
 	return r.controllers
 }
 
 func (r *REST) Middlewares() rest.IMiddlewaresManager {
 	r.middlewaresRunner.Do(func() {
-		r.middlewares = middlewares.InitMiddlewares()
+		r.middlewares = runner.InitMiddlewares(r.manager)
 	})
 	return r.middlewares
 }

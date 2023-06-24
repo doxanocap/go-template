@@ -26,7 +26,7 @@ func InitStorageService(repository interfaces.IRepository, processor interfaces.
 	}
 }
 
-func (ss *StorageService) HandlePicture(ctx context.Context, obj *model.HandlePictureReq) (string, error) {
+func (ss *StorageService) SaveFile(ctx context.Context, obj *model.HandlePicture) (string, error) {
 	pictureFormat := ss.getPictureFormat(obj.FileName)
 	if !cns.IsValidFormat(pictureFormat) {
 		return cns.NilString, errs.InvalidFormat()

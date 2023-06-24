@@ -2,6 +2,6 @@ package controllers
 
 import "github.com/gin-gonic/gin"
 
-type IStorageManager interface {
-	HandlePicture(ctx *gin.Context)
+type IStorageController interface {
+	SaveFile(ctx *gin.Context)
 }

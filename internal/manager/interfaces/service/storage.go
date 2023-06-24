@@ -6,5 +6,5 @@ import (
 )
 
 type IStorageService interface {
-	HandlePicture(ctx context.Context, obj *model.HandlePictureReq) (string, error)
+	SaveFile(ctx context.Context, obj *model.HandlePicture) (string, error)
 }

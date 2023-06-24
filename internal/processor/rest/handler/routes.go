@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func AddRoutesV1(h *Handler) {
+func (h *Handler) AddRoutesV1() {
 	v1 := h.Engine().Group("/v1")
 
 	v1.GET("/ping", func(c *gin.Context) {
@@ -14,8 +14,7 @@ func AddRoutesV1(h *Handler) {
 
 	storage := v1.Group("/storage")
 	{
-		//storage.GET("/:id", contro)
-		storage.POST("/:key", h.manager.Processor().REST().Controllers().Storage().HandlePicture)
+		storage.POST("/:filename", h.ctl.Storage().SaveFile)
 		storage.DELETE("/:id")
 	}
 }

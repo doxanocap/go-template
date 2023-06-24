@@ -12,7 +12,7 @@ import (
 
 const (
 	storageTable = "storage"
-	rowID        = "id"
+	storageRowID = "id"
 	keyColumn    = "key"
 	formatColumn = "format"
 )

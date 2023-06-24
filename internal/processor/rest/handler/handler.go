@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"app/internal/manager/interfaces"
+	"app/internal/manager/interfaces/processor/rest"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -13,15 +13,15 @@ type Handler struct {
 	engine       *gin.Engine
 	engineRunner sync.Once
 
-	manager interfaces.IManager
+	ctl rest.IControllersManager
 }
 
-func InitHandler(manager interfaces.IManager) *Handler {
-	handler := &Handler{
-		manager: manager,
+func InitHandler(controller rest.IControllersManager) *Handler {
+	newHandler := &Handler{
+		ctl: controller,
 	}
-	handler.InitRoutes()
-	return handler
+	newHandler.InitRoutes()
+	return newHandler
 }
 
 func (h *Handler) InitRoutes() {
@@ -31,7 +31,7 @@ func (h *Handler) InitRoutes() {
 
 	// here we can add special endpoints
 	// based on the Environment
-	AddRoutesV1(h)
+	h.AddRoutesV1()
 }
 
 func (h *Handler) Engine() *gin.Engine {

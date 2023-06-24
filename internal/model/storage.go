@@ -12,7 +12,7 @@ type StoragePictureSave struct {
 	BucketName string
 }
 
-type HandlePictureReq struct {
+type HandlePicture struct {
 	File     io.Reader
 	FileName string
 	Key      string
