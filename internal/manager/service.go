@@ -8,33 +8,41 @@ import (
 )
 
 type ServiceManager struct {
-	repo interfaces.IRepository
-	proc interfaces.IProcessor
+	manager interfaces.IManager
 
 	auth       IService.IAuthService
 	authRunner sync.Once
+
+	user       IService.IUserService
+	userRunner sync.Once
 
 	storage       IService.IStorageService
 	storageRunner sync.Once
 }
 
-func InitServiceManager(repo interfaces.IRepository, proc interfaces.IProcessor) *ServiceManager {
+func InitServiceManager(manager interfaces.IManager) *ServiceManager {
 	return &ServiceManager{
-		repo: repo,
-		proc: proc,
+		manager: manager,
 	}
 }
 
 func (s *ServiceManager) Auth() IService.IAuthService {
 	s.authRunner.Do(func() {
-		s.auth = service.InitAuthService(s.repo)
+		s.auth = service.InitAuthService(s.manager)
 	})
 	return s.auth
 }
 
+func (s *ServiceManager) User() IService.IUserService {
+	s.userRunner.Do(func() {
+		s.user = service.InitUserService(s.manager)
+	})
+	return s.user
+}
+
 func (s *ServiceManager) Storage() IService.IStorageService {
 	s.storageRunner.Do(func() {
-		s.storage = service.InitStorageService(s.repo, s.proc)
+		s.storage = service.InitStorageService(s.manager)
 	})
 	return s.storage
 }

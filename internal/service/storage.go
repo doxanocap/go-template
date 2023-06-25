@@ -15,14 +15,12 @@ const (
 )
 
 type StorageService struct {
-	repository interfaces.IRepository
-	processor  interfaces.IProcessor
+	manager interfaces.IManager
 }
 
-func InitStorageService(repository interfaces.IRepository, processor interfaces.IProcessor) *StorageService {
+func InitStorageService(manager interfaces.IManager) *StorageService {
 	return &StorageService{
-		repository: repository,
-		processor:  processor,
+		manager: manager,
 	}
 }
 
@@ -32,14 +30,14 @@ func (ss *StorageService) SaveFile(ctx context.Context, obj *model.HandlePicture
 		return cns.NilString, errs.InvalidFormat()
 	}
 
-	storage, err := ss.repository.Storage().Create(ctx, obj.Key, pictureFormat)
+	storage, err := ss.manager.Repository().Storage().Create(ctx, obj.Key, pictureFormat)
 	if err != nil {
 		return cns.NilString, err
 	}
 
 	obj.FileName = fmt.Sprintf("%s_%d.%s", obj.Key, (*storage).ID, pictureFormat)
 
-	err = ss.processor.Storage().Save(ctx, obj.FileName, obj.File, obj.Size)
+	err = ss.manager.Processor().Storage().Save(ctx, obj.FileName, obj.File, obj.Size)
 	if err != nil {
 		return cns.NilString, err
 	}

@@ -7,6 +7,7 @@ require (
 	github.com/georgysavva/scany v1.2.1
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.1
+	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/lib/pq v1.10.9

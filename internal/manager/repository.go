@@ -11,8 +11,8 @@ import (
 type RepositoryManager struct {
 	pool *pgxpool.Pool
 
-	auth       IRepository.IAuthRepository
-	authRunner sync.Once
+	user       IRepository.IUserRepository
+	userRunner sync.Once
 
 	storage       IRepository.IStorageRepository
 	storageRunner sync.Once
@@ -24,11 +24,11 @@ func InitRepositoryManager(pool *pgxpool.Pool) *RepositoryManager {
 	}
 }
 
-func (r *RepositoryManager) Auth() IRepository.IAuthRepository {
-	r.authRunner.Do(func() {
-		r.auth = repository.InitAuthRepository(r.pool, logger.Log.Named("[REPOSITORY][AUTH]"))
+func (r *RepositoryManager) User() IRepository.IUserRepository {
+	r.userRunner.Do(func() {
+		r.user = repository.InitUserRepository(r.pool, logger.Log.Named("[REPOSITORY][USER]"))
 	})
-	return r.auth
+	return r.user
 }
 
 func (r *RepositoryManager) Storage() IRepository.IStorageRepository {

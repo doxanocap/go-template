@@ -2,20 +2,21 @@ package errs
 
 import (
 	"errors"
+	"fmt"
 )
 
 func InvalidFormat() error {
-	return errors.New("invalid file format")
-}
-
-func IsInvalidFormatError(err error) bool {
-	return err.Error() == "invalid file format"
+	return errors.New(invalidFormat)
 }
 
 func EmptyResult() error {
-	return errors.New("empty result")
+	return errors.New(emptyResult)
 }
 
-func IsEmptyResultError(err error) bool {
-	return err.Error() == "empty result"
+func HttpConflict(msg string) error {
+	return errors.New(fmt.Sprintf("%s: %s", conflict, msg))
+}
+
+func HttpNotFound(msg string) error {
+	return errors.New(fmt.Sprintf("%s: %s", notFound, msg))
 }

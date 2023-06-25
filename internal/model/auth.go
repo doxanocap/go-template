@@ -18,7 +18,9 @@ type Tokens struct {
 	RefreshToken string `json:"refresh_token"`
 }
 
-type SignInRequest struct {
+type SignIn struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type SignUp struct {

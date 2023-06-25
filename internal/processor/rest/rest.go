@@ -29,7 +29,7 @@ func Init(manager interfaces.IManager) *REST {
 
 func (r *REST) Handler() rest.IHandlerManager {
 	r.handlerRunner.Do(func() {
-		r.handler = handler.InitHandler(r.controllers)
+		r.handler = handler.InitHandler(r.Controllers())
 	})
 	return r.handler
 }

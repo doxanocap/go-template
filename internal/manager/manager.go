@@ -35,7 +35,7 @@ func (m *Manager) Repository() interfaces.IRepository {
 
 func (m *Manager) Service() interfaces.IService {
 	m.serviceRunner.Do(func() {
-		m.service = InitServiceManager(m.Repository(), m.Processor())
+		m.service = InitServiceManager(m)
 	})
 	return m.service
 }

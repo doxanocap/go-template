@@ -16,3 +16,13 @@ type UserDTO struct {
 	PhoneNumber string `json:"phone_number" db:"phone_number"`
 	Password    string `json:"-" db:"password"`
 }
+
+func ParseUserDTO(user User) UserDTO {
+	return UserDTO{
+		UUID:        user.UUID,
+		Email:       user.Email,
+		Username:    user.Username,
+		PhoneNumber: user.PhoneNumber,
+		Password:    user.Password,
+	}
+}

@@ -32,8 +32,8 @@ func InitUserRepository(pool *pgxpool.Pool, log *zap.Logger) *UserRepository {
 	}
 }
 
-func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (*model.User, error) {
-	result := &model.User{}
+func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (result *model.User, err error) {
+	result = &model.User{}
 	log := repo.log.Named("Create").With(
 		zap.String(emailColumn, obj.Email),
 		zap.String(usernameColumn, obj.Username),
@@ -56,7 +56,7 @@ func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (*mode
 	raw, args := query.MustSql()
 	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
 
-	err := pgxscan.Select(ctx, repo.pool, result, raw, args...)
+	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
 		log.Error("failed", zap.Error(err))
 	}
@@ -64,8 +64,8 @@ func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (*mode
 	return result, err
 }
 
-func (repo *UserRepository) FindByEmail(ctx context.Context, email string) (*model.User, error) {
-	result := &model.User{}
+func (repo *UserRepository) FindByEmail(ctx context.Context, email string) (result *model.User, err error) {
+	result = &model.User{}
 	log := repo.log.Named("FindByEmail").With(
 		zap.Any(emailColumn, email))
 
@@ -77,10 +77,10 @@ func (repo *UserRepository) FindByEmail(ctx context.Context, email string) (*mod
 	raw, args := query.MustSql()
 	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
 
-	err := pgxscan.Select(ctx, repo.pool, result, raw, args...)
+	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
 		log.Error("failed", zap.Error(err))
 	}
 
-	return result, err
+	return
 }

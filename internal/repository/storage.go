@@ -31,8 +31,8 @@ func InitStorageRepository(pool *pgxpool.Pool, log *zap.Logger) *StorageReposito
 	}
 }
 
-func (repo *StorageRepository) Create(ctx context.Context, key, format string) (*model.Storage, error) {
-	res := &model.Storage{}
+func (repo *StorageRepository) Create(ctx context.Context, key, format string) (result *model.Storage, err error) {
+	result = &model.Storage{}
 	log := repo.log.Named("Create").With(
 		zap.String(keyColumn, key),
 		zap.String(formatColumn, format))
@@ -46,13 +46,13 @@ func (repo *StorageRepository) Create(ctx context.Context, key, format string) (
 	raw, args := query.MustSql()
 	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
 
-	err := pgxscan.Get(ctx, repo.pool, res, raw, args...)
+	err = pgxscan.Get(ctx, repo.pool, result, raw, args...)
 	if err != nil {
 		log.Error("failed", zap.Error(err))
-		return nil, err
+		return
 	}
-	if res == nil {
+	if result == nil {
 		return nil, errs.EmptyResult()
 	}
-	return res, nil
+	return
 }
