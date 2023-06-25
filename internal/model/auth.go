@@ -1,11 +1,8 @@
 package model
 
 type AuthResponse struct {
-	Status       int      `json:"Status"`
-	Message      string   `json:"Error"`
-	AccessToken  string   `json:"AccessToken"`
-	RefreshToken string   `json:"RefreshToken"`
-	User         AuthUser `json:"User"`
+	User   UserDTO `json:"user"`
+	Tokens Tokens  `json:"tokens"`
 }
 
 type AuthUser struct {
@@ -13,5 +10,22 @@ type AuthUser struct {
 	Username    string `json:"Username"`
 	Email       string `json:"Email"`
 	IsActivated bool   `json:"IsActivated"`
+	Password    []byte `json:"-"`
+}
+
+type Tokens struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+
+type SignIn struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type SignUp struct {
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	PhoneNumber string `json:"phone_number"`
 	Password    []byte `json:"-"`
 }

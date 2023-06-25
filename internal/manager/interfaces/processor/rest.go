@@ -1,11 +1,11 @@
 package processor
 
 import (
-	"app/internal/processor/rest/utils"
+	"app/internal/manager/interfaces/processor/rest"
 )
 
 type IRESTProcessor interface {
-	Handler() *utils.Handler
-	Controllers() *utils.Controllers
-	Middlewares() *utils.Middlewares
+	Handler() rest.IHandlerManager
+	Controllers() rest.IControllersManager
+	Middlewares() rest.IMiddlewaresManager
 }

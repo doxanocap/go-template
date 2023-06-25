@@ -1,0 +1,37 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/project
+    docker:
+      - image: cimg/go:1.20.5
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - go-mod-v4-{{ checksum "go.sum" }}
+
+      - run:
+          name: Install Dependencies
+          command: go mod download
+
+      - save_cache:
+          key: go-mod-v4-{{ checksum "go.sum" }}
+          paths:
+            - ~/project
+
+      - run:
+          name: Run build
+          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./main.go
+
+      - run: sudo apt update
+      - run: sudo apt install rsync sshpass -y
+
+      - run: ssh-keyscan $SSH_HOST >> ~/.ssh/known_hosts
+      - run: sshpass -e -v rsync -azuP --delete-before . $SSH_USER@$SSH_HOST:~/dev/backend/goportal
+      - run: sshpass -e -v ssh $SSH_USER@$SSH_HOST sudo systemctl start goportal
+
+workflows:
+  build-and-sync:
+    jobs:
+      - build

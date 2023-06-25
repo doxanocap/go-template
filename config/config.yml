@@ -1,7 +1,14 @@
-port: 8080
+PORT: 8080
 
-env: 'production'
-isProd: false
-isJSON: false
+ENV_MODE: 'develop'
+IS_PROD: false
+IS_JSON: false
 
-pg_dsn: postgres://postgres:eldoseldos@localhost:5432/hitba?sslmode=disable
+PG_DSN: postgres://postgres:eldoseldos@localhost:5432/gotemplate?sslmode=disable
+#PG_DSN: "postgresql://portaladmin:IQUHEMz7x2qjN2sn@localhost:5432/portal?sslmode=disable"
+
+S3_ENDPOINT: "archive.pscloud.io"
+S3_ACCESS_KEY: "30ALB0CVRRFWXQLQYMN3"
+S3_SECRET_KEY: "bsluZnKE7iJdyADjrltqWlJ0z4sZEZ8PIHyzjJcI"
+S3_BUCKET_NAME: "b2b-akcent"
+S3_USE_SSL: true
