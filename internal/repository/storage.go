@@ -11,10 +11,10 @@ import (
 )
 
 const (
-	storageTable = "storage"
-	storageRowID = "id"
-	keyColumn    = "key"
-	formatColumn = "format"
+	storageTable   = "storage"
+	storageTableID = "id"
+	keyColumn      = "key"
+	formatColumn   = "format"
 )
 
 type StorageRepository struct {

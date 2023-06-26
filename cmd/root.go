@@ -14,7 +14,7 @@ import (
 
 func Run() {
 	config.InitConf()
-	logger.Init(viper.GetBool("IS_PROD"), viper.GetBool("IS_JSON"))
+	logger.Init(viper.GetString("ENV_MODE"), viper.GetBool("ZAP_JSON"))
 
 	conn, err := postgres.Connect(context.Background(), viper.GetString("PG_DSN"))
 	if err != nil {

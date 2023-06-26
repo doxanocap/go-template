@@ -14,6 +14,9 @@ type RepositoryManager struct {
 	user       IRepository.IUserRepository
 	userRunner sync.Once
 
+	userParams       IRepository.IUserParamsRepository
+	userParamsRunner sync.Once
+
 	storage       IRepository.IStorageRepository
 	storageRunner sync.Once
 }
@@ -29,6 +32,13 @@ func (r *RepositoryManager) User() IRepository.IUserRepository {
 		r.user = repository.InitUserRepository(r.pool, logger.Log.Named("[REPOSITORY][USER]"))
 	})
 	return r.user
+}
+
+func (r *RepositoryManager) UserParams() IRepository.IUserParamsRepository {
+	r.userParamsRunner.Do(func() {
+		r.userParams = repository.InitUserParamsRepository(r.pool, logger.Log.Named("[REPOSITORY][USER_PARAMS]"))
+	})
+	return r.userParams
 }
 
 func (r *RepositoryManager) Storage() IRepository.IStorageRepository {
