@@ -22,7 +22,7 @@ jobs:
 
       - run:
           name: Run build
-          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./main.go
+          command: GOOS=linux GOARCH=amd64 go build -o main ./main.go
 
 workflows:
   build:
