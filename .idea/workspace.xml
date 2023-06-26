@@ -5,27 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/cns/checker.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository/userParams.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/repository/userParams.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/cns/cns.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cns/cns.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/service/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/20230624040149_user.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20230624040149_user.up.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/logger/zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/zap.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
