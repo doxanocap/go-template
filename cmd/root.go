@@ -7,6 +7,8 @@ import (
 	"app/pkg/httpServer"
 	"app/pkg/logger"
 	"app/pkg/postgres"
+	"app/pkg/rabbit"
+	"app/pkg/redis"
 	"context"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -25,6 +27,21 @@ func Run() {
 	err = amazonWebServices.InitS3()
 	if err != nil {
 		logger.Log.Fatal("failed connection to AWS: ", zap.Error(err))
+	}
+
+	_, err = rabbit.Connect()
+	if err != nil {
+		logger.Log.Fatal("failed connection to RabbitMQ: ", zap.Error(err))
+	}
+
+	_, err = redis.Connect(context.Background(), redis.Config{
+		Host:      viper.GetString("REDIS_HOST"),
+		Password:  viper.GetString("REDIS_PASSWORD"),
+		DB:        viper.GetInt("REDIS_DB"),
+		KeyPrefix: viper.GetString("REDIS_PREFIX"),
+	})
+	if err != nil {
+		logger.Log.Fatal("failed connection to Redis: ", zap.Error(err))
 	}
 
 	app := &App{

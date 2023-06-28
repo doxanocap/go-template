@@ -1,6 +1,12 @@
 version: 2.1
 
 jobs:
+  lint:
+    docker:
+      - image: golangci/golangci-lint:v1.37-alpine
+    steps:
+      - checkout
+      - run: golangci-lint run
   build:
     working_directory: ~/project
     docker:
@@ -25,6 +31,7 @@ jobs:
           command: GOOS=linux GOARCH=amd64 go build -o main ./main.go
 
 workflows:
-  build:
+  build-and-test:
     jobs:
+      - lint
       - build

@@ -17,6 +17,10 @@ func InitConf() {
 	viper.SetDefault("JWT_REFRESH_SECRET_KEY", "secret1")
 	viper.SetDefault("JWT_ACCESS_SECRET_KEY", "secret1")
 
+	viper.SetDefault("RABBIT_MQ_DSN", "amqp://guest:guest@localhost:5672")
+
+	//viper.SetDefault("REDIS_HOST")
+
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
 	viper.AddConfigPath("./config")
