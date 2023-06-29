@@ -1,7 +1,7 @@
 PORT: 8080
 
 ENV_MODE: 'development'
-ZAP_JSON: false
+ZAP_JSON: true
 
 PG_DSN: postgres://postgres:eldoseldos@localhost:5432/gotemplate?sslmode=disable
 #PG_DSN: "postgresql://portaladmin:IQUHEMz7x2qjN2sn@localhost:5432/portal?sslmode=disable"

@@ -3,14 +3,17 @@ package manager
 import (
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor"
+	"app/pkg/redis"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/jackc/pgx/v4/pgxpool"
 	"sync"
 )
 
 type Manager struct {
-	pool            *pgxpool.Pool
-	storageProvider processor.IStorageProvider
+	pool              *pgxpool.Pool
+	cacheConn         *redis.Conn
+	storageProvider   processor.IStorageProvider
+	msgBrokerProvider processor.IMsgBrokerProvider
 
 	service       interfaces.IService
 	serviceRunner sync.Once
@@ -53,4 +56,12 @@ func (m *Manager) SetPool(pool *pgxpool.Pool) {
 
 func (m *Manager) SetStorageProvider(storageProvider processor.IStorageProvider) {
 	m.storageProvider = storageProvider
+}
+
+func (m *Manager) SetMsgBroker(msgBrokerProvider processor.IMsgBrokerProvider) {
+	m.msgBrokerProvider = msgBrokerProvider
+}
+
+func (m *Manager) SetCacheConnection(cacheConn *redis.Conn) {
+	m.cacheConn = cacheConn
 }

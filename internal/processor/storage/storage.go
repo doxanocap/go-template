@@ -6,16 +6,16 @@ import (
 	"io"
 )
 
-type StorageProcessor struct {
+type Storage struct {
 	provider processor.IStorageProvider
 }
 
-func (sp *StorageProcessor) Save(ctx context.Context, name string, file io.Reader, size int64) error {
-	return sp.provider.Save(ctx, name, file, size)
+func (s *Storage) Save(ctx context.Context, name string, file io.Reader, size int64) error {
+	return s.provider.Save(ctx, name, file, size)
 }
 
-func Init(provider processor.IStorageProvider) *StorageProcessor {
-	return &StorageProcessor{
+func Init(provider processor.IStorageProvider) *Storage {
+	return &Storage{
 		provider: provider,
 	}
 }
