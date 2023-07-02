@@ -16,4 +16,9 @@ func (h *Handler) AddRoutesV1() {
 		storage.POST("/:filename", h.ctl.Storage().SaveFile)
 		storage.DELETE("/:id")
 	}
+
+	ws := v1.Group("/ws")
+	{
+		ws.GET("/pool", h.ctl.Websocket().Pool)
+	}
 }

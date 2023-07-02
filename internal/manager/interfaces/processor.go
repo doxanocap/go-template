@@ -7,4 +7,5 @@ type IProcessor interface {
 	MsgBroker() processor.IMsgBrokerProcessor
 	Mailer() processor.IMailerProcessor
 	Storage() processor.IStorageProcessor
+	WS() processor.IWSProcessor
 }

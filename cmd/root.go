@@ -29,6 +29,7 @@ func Run() {
 	app.ConnectToAWS()
 	app.ConnectToRabbitMQ()
 	app.ConnectToRedis()
+	app.ConnectToSMTP()
 
 	if err := app.Server.Run(app.Manager.Processor().REST().Handler().Engine()); err != nil {
 		logger.Log.Fatal("failed to run REST: %v", zap.Error(err))

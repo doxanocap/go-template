@@ -3,9 +3,12 @@ package manager
 import (
 	"app/internal/manager/interfaces"
 	IProcessor "app/internal/manager/interfaces/processor"
+	"app/internal/processor/mailer"
 	"app/internal/processor/msgbroker"
 	"app/internal/processor/rest"
 	"app/internal/processor/storage"
+	"app/internal/processor/ws"
+	"app/pkg/logger"
 	"sync"
 )
 
@@ -26,6 +29,9 @@ type ProcessorManager struct {
 
 	mailerProcessor       IProcessor.IMailerProcessor
 	mailerProcessorRunner sync.Once
+
+	wsProcessor       IProcessor.IWSProcessor
+	wsProcessorRunner sync.Once
 }
 
 func InitProcessor(manager interfaces.IManager, storageProvider IProcessor.IStorageProvider) *ProcessorManager {
@@ -44,21 +50,28 @@ func (p *ProcessorManager) REST() IProcessor.IRESTProcessor {
 
 func (p *ProcessorManager) MsgBroker() IProcessor.IMsgBrokerProcessor {
 	p.msgBrokerProcessorRunner.Do(func() {
-		p.msgBrokerProcessor = msgbroker.Init(p.msgBrokerProvider)
+		p.msgBrokerProcessor = msgbroker.Init(p.msgBrokerProvider, logger.Log.Named("[PROCESSOR][MSG_BROKER]"))
 	})
 	return p.msgBrokerProcessor
 }
 
 func (p *ProcessorManager) Mailer() IProcessor.IMailerProcessor {
 	p.mailerProcessorRunner.Do(func() {
-		p.mailerProcessor = p.mailerProvider
+		p.mailerProcessor = mailer.Init(p.mailerProvider, logger.Log.Named("[PROCESSOR][MAILER]"))
 	})
 	return p.mailerProcessor
 }
 
 func (p *ProcessorManager) Storage() IProcessor.IStorageProcessor {
 	p.storageProcessorRunner.Do(func() {
-		p.storageProcessor = storage.Init(p.storageProvider)
+		p.storageProcessor = storage.Init(p.storageProvider, logger.Log.Named("[PROCESSOR][STORAGE]"))
 	})
 	return p.storageProcessor
+}
+
+func (p *ProcessorManager) WS() IProcessor.IWSProcessor {
+	p.wsProcessorRunner.Do(func() {
+		p.wsProcessor = ws.Init(p.manager, logger.Log.Named("[PROCESSOR][WS]"))
+	})
+	return p.wsProcessor
 }

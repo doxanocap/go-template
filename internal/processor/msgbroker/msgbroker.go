@@ -6,10 +6,12 @@ import (
 	"app/pkg/rabbitmq"
 	"context"
 	"fmt"
+	"go.uber.org/zap"
 )
 
 type MsgBroker struct {
 	provider processor.IMsgBrokerProvider
+	log      *zap.Logger
 }
 
 func (mb *MsgBroker) Send(ctx context.Context, qname, msg string) error {
@@ -35,8 +37,9 @@ func (mb *MsgBroker) NewQueue(obj rabbitmq.QueueParams) error {
 	return mb.provider.NewQueue(obj)
 }
 
-func Init(provider processor.IMsgBrokerProvider) *MsgBroker {
+func Init(provider processor.IMsgBrokerProvider, log *zap.Logger) *MsgBroker {
 	return &MsgBroker{
 		provider: provider,
+		log:      log,
 	}
 }

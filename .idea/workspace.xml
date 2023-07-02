@@ -5,27 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/runner.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/mailer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/msgbroker.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/mailer/mailer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/msgbroker/msgbroker.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/banner/banner.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/consumer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/rabbitmq/producer.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/smtp/smtp.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.circleci/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.circleci/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/websocket.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws/pool.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/processor/rest/controllers/ws.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/processor/ws/client.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/processor/ws/pool.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/processor/ws/ws.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/app.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/connection.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/cns/cns.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cns/cns.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/manager/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/manager.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/manager/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/processor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/mailer/mailer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/mailer/mailer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/msgbroker/msgbroker.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/msgbroker/msgbroker.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/processor/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/storage/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbit/rabbitmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +67,7 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/eldos/go/src/github.com/doxanocap/work/Hitba.kz/hitba",
+    "last_opened_file_path": "C:/Users/eldos/go/src/github.com/doxanocap/projects/go-template",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -80,11 +82,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\manager\interfaces\processor" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\cmd" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\handler" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\runner" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\work\Roboto.kz\portal-services\internal\cns\errors" />
     </key>
   </component>
   <component name="RunManager">

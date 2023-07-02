@@ -6,6 +6,7 @@ import (
 	"app/pkg/postgres"
 	"app/pkg/rabbitmq"
 	"app/pkg/redis"
+	"app/pkg/smtp"
 	"context"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -47,4 +48,9 @@ func (app *App) ConnectToRedis() {
 		logger.Log.Fatal("failed connection to Redis: ", zap.Error(err))
 	}
 	app.Manager.SetCacheConnection(redisConn)
+}
+
+func (app *App) ConnectToSMTP() {
+	smtpConn := smtp.Connect()
+	app.Manager.SetMailer(smtpConn)
 }

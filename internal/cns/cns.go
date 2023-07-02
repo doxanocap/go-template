@@ -1,5 +1,7 @@
 package cns
 
+import "time"
+
 const (
 	AppDevelopmentEnv = "development"
 	AppProductionEnv  = "production"
@@ -7,6 +9,13 @@ const (
 
 const (
 	NilString = ""
+	Space     = ""
+	NewLine   = "\n"
+)
+
+var (
+	ByteNewLine = []byte{'\n'}
+	ByteSpace   = []byte{' '}
 )
 
 const (
@@ -42,3 +51,25 @@ const (
 	UpdatedAtColumn    = "updated_at"
 	CreatedAtColumn    = "create_at"
 )
+
+// Mailer
+const (
+	MailingAddress = "mailing_address"
+	MailSentTo     = "mail_sent_to"
+)
+
+// Storage
+const (
+	StorageFileName = "storage_filename"
+	StorageFileSize = "storage_filesize"
+)
+
+// Websocket
+const (
+	WebsocketWriteWait      = 10 * time.Second
+	WebsocketPongWait       = 60 * time.Second
+	WebsocketPingPeriod     = (WebsocketPongWait * 9) / 10
+	WebsocketMaxMessageSize = 2056
+)
+
+var ()
