@@ -7,7 +7,6 @@ import (
 )
 
 type ControllersManager struct {
-	authController      controllers.IAuthController
 	storageController   controllers.IStorageController
 	websocketController controllers.IWSController
 }
@@ -15,7 +14,6 @@ type ControllersManager struct {
 func InitControllers(manager interfaces.IManager) *ControllersManager {
 	return &ControllersManager{
 		storageController:   controllers2.InitStorageController(manager),
-		authController:      controllers2.InitAuthController(manager),
 		websocketController: controllers2.InitWebsocketController(manager),
 	}
 }
@@ -26,8 +24,4 @@ func (cm *ControllersManager) Websocket() controllers.IWSController {
 
 func (cm *ControllersManager) Storage() controllers.IStorageController {
 	return cm.storageController
-}
-
-func (cm *ControllersManager) Auth() controllers.IAuthController {
-	return cm.authController
 }

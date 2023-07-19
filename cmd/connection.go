@@ -13,11 +13,11 @@ import (
 )
 
 func (app *App) ConnectToPostgres() {
-	conn, err := postgres.Connect(context.Background(), viper.GetString("PG_DSN"))
+	conn, err := postgres.Connect(viper.GetString("PG_DSN"))
 	if err != nil {
 		logger.Log.Fatal("failed connection to postgres:", zap.Error(err))
 	}
-	app.Manager.SetPool(conn)
+	app.Manager.SetConn(conn)
 }
 
 func (app *App) ConnectToAWS() {

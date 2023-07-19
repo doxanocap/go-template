@@ -1,10 +1,10 @@
 package postgres
 
 import (
-	"context"
 	"fmt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 
-	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
@@ -28,21 +28,23 @@ func getDSN(cfg Config) string {
 	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", cfg.Host, cfg.Port, cfg.Username, cfg.Password, cfg.DBName, cfg.SSLMode)
 }
 
-func Connect(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
-	connConfig, err := pgxpool.ParseConfig(dsn)
+func Connect(dsn string) (*gorm.DB, error) {
+	connection, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse config -> %v", err)
+		return nil, fmt.Errorf("failed to connect to postgres -> %v", err)
 	}
 
-	conn, err := pgxpool.ConnectConfig(ctx, connConfig)
+	sqlDB, err := connection.DB()
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect -> %v", err)
+		return nil, fmt.Errorf("failed to connect to postgres -> %v", err)
 	}
 
-	err = conn.Ping(ctx)
+	err = sqlDB.Ping()
 	if err != nil {
 		return nil, fmt.Errorf("failed to ping -> %v", err)
 	}
+	sqlDB.SetMaxIdleConns(100)
+	sqlDB.SetMaxOpenConns(100)
 
-	return conn, nil
+	return connection, nil
 }

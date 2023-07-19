@@ -4,46 +4,26 @@ import (
 	IRepository "app/internal/manager/interfaces/repository"
 	"app/internal/repository"
 	"app/pkg/logger"
-	"github.com/jackc/pgx/v4/pgxpool"
+	"gorm.io/gorm"
 	"sync"
 )
 
 type RepositoryManager struct {
-	pool *pgxpool.Pool
-
-	user       IRepository.IUserRepository
-	userRunner sync.Once
-
-	userParams       IRepository.IUserParamsRepository
-	userParamsRunner sync.Once
-
+	conn *gorm.DB
+	
 	storage       IRepository.IStorageRepository
 	storageRunner sync.Once
 }
 
-func InitRepositoryManager(pool *pgxpool.Pool) *RepositoryManager {
+func InitRepositoryManager(conn *gorm.DB) *RepositoryManager {
 	return &RepositoryManager{
-		pool: pool,
+		conn: conn,
 	}
-}
-
-func (r *RepositoryManager) User() IRepository.IUserRepository {
-	r.userRunner.Do(func() {
-		r.user = repository.InitUserRepository(r.pool, logger.Log.Named("[REPOSITORY][USER]"))
-	})
-	return r.user
-}
-
-func (r *RepositoryManager) UserParams() IRepository.IUserParamsRepository {
-	r.userParamsRunner.Do(func() {
-		r.userParams = repository.InitUserParamsRepository(r.pool, logger.Log.Named("[REPOSITORY][USER_PARAMS]"))
-	})
-	return r.userParams
 }
 
 func (r *RepositoryManager) Storage() IRepository.IStorageRepository {
 	r.storageRunner.Do(func() {
-		r.storage = repository.InitStorageRepository(r.pool, logger.Log.Named("[REPOSITORY][STORAGE]"))
+		r.storage = repository.InitStorageRepository(r.conn, logger.Log.Named("[REPOSITORY][STORAGE]"))
 	})
 	return r.storage
 }

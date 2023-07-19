@@ -5,13 +5,13 @@ import (
 	"app/internal/manager/interfaces/processor"
 	"app/pkg/redis"
 	"app/pkg/smtp"
-	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/jackc/pgx/v4/pgxpool"
+	"gorm.io/gorm"
 	"sync"
 )
 
 type Manager struct {
-	pool              *pgxpool.Pool
+	conn              *gorm.DB
 	cacheConn         *redis.Conn
 	storageProvider   processor.IStorageProvider
 	msgBrokerProvider processor.IMsgBrokerProvider
@@ -33,7 +33,7 @@ func InitManager() *Manager {
 
 func (m *Manager) Repository() interfaces.IRepository {
 	m.repositoryRunner.Do(func() {
-		m.repository = InitRepositoryManager(m.pool)
+		m.repository = InitRepositoryManager(m.conn)
 	})
 	return m.repository
 }
@@ -52,8 +52,8 @@ func (m *Manager) Processor() interfaces.IProcessor {
 	return m.processor
 }
 
-func (m *Manager) SetPool(pool *pgxpool.Pool) {
-	m.pool = pool
+func (m *Manager) SetConn(conn *gorm.DB) {
+	m.conn = conn
 }
 
 func (m *Manager) SetStorageProvider(storageProvider processor.IStorageProvider) {

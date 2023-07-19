@@ -7,6 +7,14 @@ import (
 	"time"
 )
 
+//	@title			go-template
+//	@version		1.0
+//	@description	Swagger документация для ТЗ.
+//	@termsOfService	http://swagger.io/terms/
+
+//	@host		localhost:8080
+//	@BasePath	/
+
 func main() {
 	banner.Default(map[string]interface{}{
 		"now":      time.Now().Format(time.ANSIC),

@@ -17,6 +17,12 @@ func InitStorageController(manager interfaces.IManager) *StorageController {
 	}
 }
 
+// @Router		/v1/storage/:filename [post]
+// @Tags		storage
+// @Produce	json
+// @Success	200	{object}	string
+// @Failure	400	{object}	model.Err
+// @Failure	500	{object}	model.Err
 func (sc *StorageController) SaveFile(ctx *gin.Context) {
 	formFile, err := ctx.FormFile("file")
 	if err != nil {

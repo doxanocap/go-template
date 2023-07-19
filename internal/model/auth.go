@@ -29,3 +29,7 @@ type SignUp struct {
 	PhoneNumber string `json:"phone_number"`
 	Password    []byte `json:"-"`
 }
+
+type Err struct {
+	Error `json:"error"`
+}
