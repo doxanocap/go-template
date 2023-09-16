@@ -12,7 +12,7 @@ type Server struct {
 	httpServer *http.Server
 }
 
-func New() *Server {
+func InitServer() *Server {
 	return &Server{}
 }
 

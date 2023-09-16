@@ -1,23 +1,12 @@
-package controllers
+package handler
 
 import (
-	"app/internal/manager/interfaces"
 	"app/internal/model"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-type StorageController struct {
-	manager interfaces.IManager
-}
-
-func InitStorageController(manager interfaces.IManager) *StorageController {
-	return &StorageController{
-		manager: manager,
-	}
-}
-
-func (sc *StorageController) SaveFile(ctx *gin.Context) {
+func (h *Handler) SaveFile(ctx *gin.Context) {
 	formFile, err := ctx.FormFile("file")
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -40,7 +29,7 @@ func (sc *StorageController) SaveFile(ctx *gin.Context) {
 		return
 	}
 
-	fileName, err := sc.manager.Service().Storage().SaveFile(ctx, &model.HandlePicture{
+	fileName, err := h.manager.Service().Storage().SaveFile(ctx, &model.HandlePicture{
 		File:     file,
 		FileName: formFile.Filename,
 		Key:      key,

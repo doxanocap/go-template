@@ -6,7 +6,9 @@ import (
 	"io"
 	"log"
 	"os"
+	"runtime"
 	"strings"
+	"time"
 )
 
 const goTemplateBanner = `
@@ -20,7 +22,14 @@ const goTemplateBanner = `
 
 `
 
-func Default(data map[string]interface{}) {
+func Default() {
+	data := map[string]interface{}{
+		"now":      time.Now().Format(time.ANSIC),
+		"numCPU":   runtime.NumCPU(),
+		"GOOS":     runtime.GOOS,
+		"GOARCH":   runtime.GOARCH,
+		"Compiler": runtime.Compiler,
+	}
 	err := Show(os.Stdout, strings.NewReader(goTemplateBanner), data)
 	if err != nil {
 		log.Println(err)

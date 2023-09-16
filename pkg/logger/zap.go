@@ -2,6 +2,7 @@ package logger
 
 import (
 	"app/internal/cns"
+	"app/internal/config"
 	"os"
 )
 
@@ -15,8 +16,8 @@ type ExtractContextFunc func(ctx context.Context) (key string, value interface{}
 
 var Log *zap.Logger
 
-func Init(envMode string, isJSON bool) {
-	Log = initLogger(envMode == cns.AppProductionEnv, isJSON)
+func InitLogger(cfg *config.Cfg) {
+	Log = initLogger(cfg.AppEnvironment == cns.AppProductionEnv, cfg.LogJSON)
 }
 
 func initLogger(isProduction bool, isJSON bool) *zap.Logger {

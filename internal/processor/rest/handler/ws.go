@@ -1,21 +1,10 @@
-package controllers
+package handler
 
 import (
-	"app/internal/manager/interfaces"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
 )
-
-type WebsocketController struct {
-	manager interfaces.IManager
-}
-
-func InitWebsocketController(manager interfaces.IManager) *WebsocketController {
-	return &WebsocketController{
-		manager: manager,
-	}
-}
 
 var connectionUpgrade = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -23,7 +12,7 @@ var connectionUpgrade = websocket.Upgrader{
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
-func (ws *WebsocketController) Pool(ctx *gin.Context) {
+func (h *Handler) Pool(ctx *gin.Context) {
 	header := http.Header{}
 	conn, err := connectionUpgrade.Upgrade(ctx.Writer, ctx.Request, header)
 	if err != nil {
@@ -33,8 +22,8 @@ func (ws *WebsocketController) Pool(ctx *gin.Context) {
 		return
 	}
 
-	ws.manager.Processor().WS().Pool()
-	client := ws.manager.Processor().WS().Client().NewClient(ctx, conn)
+	h.manager.Processor().WS().Pool()
+	client := h.manager.Processor().WS().Client().NewClient(ctx, conn)
 
 	go client.Reader()
 	go client.Writer()

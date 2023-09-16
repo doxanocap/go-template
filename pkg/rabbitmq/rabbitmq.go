@@ -1,8 +1,9 @@
 package rabbitmq
 
 import (
+	"app/internal/config"
+	"github.com/doxanocap/pkg/lg"
 	amqp "github.com/rabbitmq/amqp091-go"
-	"github.com/spf13/viper"
 )
 
 type MQClient struct {
@@ -10,10 +11,10 @@ type MQClient struct {
 	Queues map[string]amqp.Queue
 }
 
-func Connect() (client *MQClient, err error) {
-	conn, err := amqp.Dial(viper.GetString("RABBIT_MQ_DSN"))
+func InitConnection(cfg *config.Cfg) *MQClient {
+	conn, err := amqp.Dial(cfg.RabbitDSN)
 	if err != nil {
-		return
+		return nil
 	}
 
 	defer func() {
@@ -22,18 +23,17 @@ func Connect() (client *MQClient, err error) {
 
 	ch, err := conn.Channel()
 	if err != nil {
-		return
+		lg.Fatalf("connection to MQClient: %v", err)
 	}
 
 	defer func() {
 		err = ch.Close()
 	}()
 
-	client = &MQClient{
+	return &MQClient{
 		Ch:     ch,
 		Queues: map[string]amqp.Queue{},
 	}
-	return
 }
 
 type QueueParams struct {

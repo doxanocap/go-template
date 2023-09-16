@@ -1,39 +1,33 @@
 package redis
 
 import (
+	"app/internal/config"
 	"context"
-	"fmt"
+	"github.com/doxanocap/pkg/lg"
 	"github.com/go-redis/redis/v8"
 	"time"
 )
-
-type Config struct {
-	Host      string
-	Password  string
-	DB        int
-	KeyPrefix string
-}
 
 type Conn struct {
 	client    *redis.Client
 	keyPrefix string
 }
 
-func Connect(ctx context.Context, config Config) (*Conn, error) {
+func InitConnection(ctx context.Context, cfg *config.Cfg) *Conn {
 	client := redis.NewClient(&redis.Options{
-		Addr:     config.Host,
-		Password: config.Password,
-		DB:       config.DB,
+		Addr:     cfg.RedisHost,
+		Password: cfg.RedisPassword,
+		DB:       cfg.RedisDatabase,
 	})
 
 	if err := client.Ping(ctx).Err(); err != nil {
-		return nil, fmt.Errorf("failed to connect: %v", err)
+		lg.Fatalf("redis connection: %v", err)
 	}
 
 	return &Conn{
 		client:    client,
-		keyPrefix: config.KeyPrefix,
-	}, nil
+		keyPrefix: cfg.RedisPrefix,
+	}
 }
 
 func (r *Conn) Get(ctx context.Context, key string) ([]byte, error) {

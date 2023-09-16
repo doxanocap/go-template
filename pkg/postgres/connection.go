@@ -1,8 +1,10 @@
 package postgres
 
 import (
+	"app/internal/config"
 	"context"
 	"fmt"
+	"github.com/doxanocap/pkg/lg"
 
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/jmoiron/sqlx"
@@ -15,34 +17,27 @@ const (
 	ChatMessages  = "chat_messages"
 )
 
-type Config struct {
-	Host     string
-	Port     string
-	Username string
-	Password string
-	DBName   string
-	SSLMode  string
+func getDSN(cfg *config.Cfg) string {
+	return fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		cfg.PostgresHost, cfg.PostgresPort, cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDatabase, cfg.PostgresSSL)
 }
 
-func getDSN(cfg Config) string {
-	return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", cfg.Host, cfg.Port, cfg.Username, cfg.Password, cfg.DBName, cfg.SSLMode)
-}
-
-func Connect(ctx context.Context, dsn string) (*pgxpool.Pool, error) {
-	connConfig, err := pgxpool.ParseConfig(dsn)
+func InitConnection(ctx context.Context, cfg *config.Cfg) *pgxpool.Pool {
+	connConfig, err := pgxpool.ParseConfig(getDSN(cfg))
 	if err != nil {
-		return nil, fmt.Errorf("failed to parse config -> %v", err)
+		lg.Fatalf("failed to parse config -> %v", err)
 	}
 
 	conn, err := pgxpool.ConnectConfig(ctx, connConfig)
 	if err != nil {
-		return nil, fmt.Errorf("failed to connect -> %v", err)
+		lg.Fatalf("failed to connect -> %v", err)
 	}
 
 	err = conn.Ping(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("failed to ping -> %v", err)
+		lg.Fatalf("failed to ping -> %v", err)
 	}
 
-	return conn, nil
+	return conn
 }

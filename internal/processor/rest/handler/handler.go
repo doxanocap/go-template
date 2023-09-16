@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"app/internal/manager/interfaces/processor/rest"
+	"app/internal/manager/interfaces"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -12,14 +12,14 @@ import (
 type Handler struct {
 	engine       *gin.Engine
 	engineRunner sync.Once
-
-	ctl rest.IControllersManager
+	manager      interfaces.IManager
 }
 
-func InitHandler(controller rest.IControllersManager) *Handler {
+func InitHandler(manager interfaces.IManager) *Handler {
 	newHandler := &Handler{
-		ctl: controller,
+		manager: manager,
 	}
+
 	newHandler.InitRoutes()
 	return newHandler
 }

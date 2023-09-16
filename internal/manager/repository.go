@@ -1,7 +1,7 @@
 package manager
 
 import (
-	IRepository "app/internal/manager/interfaces/repository"
+	"app/internal/manager/interfaces"
 	"app/internal/repository"
 	"app/pkg/logger"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -11,13 +11,13 @@ import (
 type RepositoryManager struct {
 	pool *pgxpool.Pool
 
-	user       IRepository.IUserRepository
+	user       interfaces.IUserRepository
 	userRunner sync.Once
 
-	userParams       IRepository.IUserParamsRepository
+	userParams       interfaces.IUserParamsRepository
 	userParamsRunner sync.Once
 
-	storage       IRepository.IStorageRepository
+	storage       interfaces.IStorageRepository
 	storageRunner sync.Once
 }
 
@@ -27,21 +27,21 @@ func InitRepositoryManager(pool *pgxpool.Pool) *RepositoryManager {
 	}
 }
 
-func (r *RepositoryManager) User() IRepository.IUserRepository {
+func (r *RepositoryManager) User() interfaces.IUserRepository {
 	r.userRunner.Do(func() {
 		r.user = repository.InitUserRepository(r.pool, logger.Log.Named("[REPOSITORY][USER]"))
 	})
 	return r.user
 }
 
-func (r *RepositoryManager) UserParams() IRepository.IUserParamsRepository {
+func (r *RepositoryManager) UserParams() interfaces.IUserParamsRepository {
 	r.userParamsRunner.Do(func() {
 		r.userParams = repository.InitUserParamsRepository(r.pool, logger.Log.Named("[REPOSITORY][USER_PARAMS]"))
 	})
 	return r.userParams
 }
 
-func (r *RepositoryManager) Storage() IRepository.IStorageRepository {
+func (r *RepositoryManager) Storage() interfaces.IStorageRepository {
 	r.storageRunner.Do(func() {
 		r.storage = repository.InitStorageRepository(r.pool, logger.Log.Named("[REPOSITORY][STORAGE]"))
 	})

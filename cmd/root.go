@@ -4,34 +4,58 @@ import (
 	"app/internal/manager"
 	"app/pkg/httpServer"
 	"app/pkg/logger"
+	"app/pkg/rabbitmq"
+	"app/pkg/redis"
+	"app/pkg/smtp"
+	"context"
+	"github.com/doxanocap/pkg/lg"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/spf13/viper"
+	"go.uber.org/fx"
 	"go.uber.org/zap"
 )
 
-type App struct {
-	Server  *httpServer.Server
-	Manager *manager.Manager
-
-	pool *pgxpool.Pool
+func SetupManager(
+	lc fx.Lifecycle,
+	pool *pgxpool.Pool,
+	mqClient *rabbitmq.MQClient,
+	redisConn *redis.Conn,
+	smtPConn *smtp.SMTP,
+	manager *manager.Manager,
+) {
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			manager.SetPool(pool)
+			manager.SetMsgBroker(mqClient)
+			manager.SetCacheConnection(redisConn)
+			manager.SetMailer(smtPConn)
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			pool.Close()
+			if err := mqClient.Ch.Close(); err != nil {
+				return err
+			}
+			if err := redisConn.Close(); err != nil {
+				return err
+			}
+			return nil
+		},
+	})
 }
 
-func Run() {
-	InitConfig()
-	logger.Init(viper.GetString("ENV_MODE"), viper.GetBool("ZAP_JSON"))
-
-	app := &App{
-		Server:  httpServer.New(),
-		Manager: manager.InitManager(),
-	}
-
-	app.ConnectToPostgres()
-	app.ConnectToAWS()
-	app.ConnectToRabbitMQ()
-	app.ConnectToRedis()
-	app.ConnectToSMTP()
-
-	if err := app.Server.Run(app.Manager.Processor().REST().Handler().Engine()); err != nil {
-		logger.Log.Fatal("failed to run REST: %v", zap.Error(err))
-	}
+func RunServer(lc fx.Lifecycle, server *httpServer.Server, manager *manager.Manager) {
+	lc.Append(fx.Hook{
+		OnStart: func(context.Context) error {
+			go func() {
+				if err := server.Run(manager.Processor().REST().Handler().Engine()); err != nil {
+					logger.Log.Fatal("failed to run REST: %v", zap.Error(err))
+				}
+			}()
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			lg.Info("Stopping server...")
+			return server.Shutdown(ctx)
+		},
+	})
 }

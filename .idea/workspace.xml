@@ -5,29 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/websocket.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/ws/pool.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/rest/controllers/ws.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/ws/client.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/ws/pool.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/processor/ws/ws.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/connection.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/cns/cns.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cns/cns.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/manager.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/processor.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/processor.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/mailer/mailer.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/mailer/mailer.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/msgbroker/msgbroker.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/msgbroker/msgbroker.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/storage.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/websocket.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middlewares.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middlewares/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/storage.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/userParams.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/auth.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/storage.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/ws.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/ws.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/storage/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/middlewares/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/middlewares/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/rest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/rest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/middlewares.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/middlewares/middlewares.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/banner/banner.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/banner/banner.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/httpServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/httpServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/logger/zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/zap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/postgres/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/postgres/connection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/redis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/smtp/smtp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/smtp/smtp.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,44 +81,54 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2RKRZcsdyPKRSVtVE6d2ZUaqi6p" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultGoTemplateProperty": "Go File",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/eldos/go/src/github.com/doxanocap/projects/go-template",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/eldos/go/src/github.com/doxanocap/projects/go-template/deployment&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\deployment" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\config" />
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\middlewares" />
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\handler" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\manager\interfaces\processor" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\cmd" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\handler" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\runner" />
     </key>
   </component>
   <component name="RunManager">
@@ -127,8 +169,17 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="CURRENT_VAGRANT" />
+    <option name="myConnectionId" value="" />
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -143,5 +194,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/internal/config/config.go</url>
+          <line>44</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

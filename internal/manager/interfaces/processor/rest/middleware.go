@@ -1,7 +1,7 @@
-package middlewares
+package rest
 
 import "github.com/gin-gonic/gin"
 
-type IAuthMiddlewares interface {
+type IMiddlewareManager interface {
 	VerifySession(ctx *gin.Context)
 }

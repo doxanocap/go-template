@@ -11,7 +11,7 @@ type SMTP struct {
 	From    string
 }
 
-func Connect() *SMTP {
+func InitConnection() *SMTP {
 	from := viper.GetString("SMTP_EMAIL")
 	password := viper.GetString("SMTP_PASSWORD")
 

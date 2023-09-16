@@ -1,26 +1,15 @@
-package controllers
+package handler
 
 import (
 	"app/internal/cns"
 	"app/internal/cns/errs"
-	"app/internal/manager/interfaces"
 	"app/internal/model"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"net/http"
 )
 
-type AuthController struct {
-	manager interfaces.IManager
-}
-
-func InitAuthController(manager interfaces.IManager) *AuthController {
-	return &AuthController{
-		manager: manager,
-	}
-}
-
-func (ac *AuthController) SignIn(ctx *gin.Context) {
+func (h *Handler) SignIn(ctx *gin.Context) {
 	var body model.SignIn
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -29,7 +18,7 @@ func (ac *AuthController) SignIn(ctx *gin.Context) {
 		return
 	}
 
-	result, err := ac.manager.Service().User().Authenticate(ctx, body)
+	result, err := h.manager.Service().User().Authenticate(ctx, body)
 	if err != nil {
 		if errs.IsHttpNotFoundError(err) {
 			ctx.Status(http.StatusNotFound)
@@ -53,7 +42,7 @@ func (ac *AuthController) SignIn(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, *result)
 }
 
-func (ac *AuthController) SignUp(ctx *gin.Context) {
+func (h *Handler) SignUp(ctx *gin.Context) {
 	var body model.SignUp
 	if err := ctx.ShouldBindJSON(&body); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -62,7 +51,7 @@ func (ac *AuthController) SignUp(ctx *gin.Context) {
 		return
 	}
 
-	result, err := ac.manager.Service().User().Create(ctx, body)
+	result, err := h.manager.Service().User().Create(ctx, body)
 	if err != nil {
 		if errs.IsHttpConflictError(err) {
 			ctx.Status(http.StatusConflict)
@@ -87,7 +76,7 @@ func (ac *AuthController) SignUp(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, *result)
 }
 
-func (ac *AuthController) Refresh(ctx *gin.Context) {
+func (h *Handler) Refresh(ctx *gin.Context) {
 	refreshToken := ctx.Request.Header.Get("refreshToken")
 
 	if cns.IsNilString(refreshToken) {
@@ -95,7 +84,7 @@ func (ac *AuthController) Refresh(ctx *gin.Context) {
 		return
 	}
 
-	result, err := ac.manager.Service().User().Refresh(ctx, refreshToken)
+	result, err := h.manager.Service().User().Refresh(ctx, refreshToken)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
@@ -116,7 +105,7 @@ func (ac *AuthController) Refresh(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, *result)
 }
 
-func (ac *AuthController) Logout(ctx *gin.Context) {
+func (h *Handler) Logout(ctx *gin.Context) {
 	refreshToken := ctx.Request.Header.Get("refreshToken")
 
 	if cns.IsNilString(refreshToken) {
@@ -124,7 +113,7 @@ func (ac *AuthController) Logout(ctx *gin.Context) {
 		return
 	}
 
-	if err := ac.manager.Service().User().Logout(ctx, refreshToken); err != nil {
+	if err := h.manager.Service().User().Logout(ctx, refreshToken); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
 		})
