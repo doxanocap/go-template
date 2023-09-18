@@ -13,7 +13,8 @@ type Conn struct {
 	keyPrefix string
 }
 
-func InitConnection(ctx context.Context, cfg *config.Cfg) *Conn {
+func InitConnection(cfg *config.Cfg) *Conn {
+	ctx := context.Background()
 	client := redis.NewClient(&redis.Options{
 		Addr:     cfg.RedisHost,
 		Password: cfg.RedisPassword,

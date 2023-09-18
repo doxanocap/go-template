@@ -16,8 +16,9 @@ type ExtractContextFunc func(ctx context.Context) (key string, value interface{}
 
 var Log *zap.Logger
 
-func InitLogger(cfg *config.Cfg) {
+func InitLogger(cfg *config.Cfg) *zap.Logger {
 	Log = initLogger(cfg.AppEnvironment == cns.AppProductionEnv, cfg.LogJSON)
+	return Log
 }
 
 func initLogger(isProduction bool, isJSON bool) *zap.Logger {

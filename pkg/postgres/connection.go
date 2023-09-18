@@ -23,7 +23,8 @@ func getDSN(cfg *config.Cfg) string {
 		cfg.PostgresHost, cfg.PostgresPort, cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDatabase, cfg.PostgresSSL)
 }
 
-func InitConnection(ctx context.Context, cfg *config.Cfg) *pgxpool.Pool {
+func InitConnection(cfg *config.Cfg) *pgxpool.Pool {
+	ctx := context.Background()
 	connConfig, err := pgxpool.ParseConfig(getDSN(cfg))
 	if err != nil {
 		lg.Fatalf("failed to parse config -> %v", err)

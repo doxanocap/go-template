@@ -5,61 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/875e8a9a-d2a0-4cae-ac81-f8417481ab70/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/b0b06355-dfca-40a2-91d6-568f1e08c36c/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/connection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/connection.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/deployment/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/storage.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/websocket.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middlewares.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/middlewares/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/storage.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/userParams.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/auth.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/storage.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/user.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/ws.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/ws.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/middlewares/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/middlewares/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/rest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/rest.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/middlewares.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/middlewares/middlewares.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/banner/banner.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/banner/banner.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/httpServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/httpServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/aws/aws.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/aws/aws.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/aws/s3.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/aws/s3.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/logger/zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/zap.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/postgres/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/postgres/connection.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/redis/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/redis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/smtp/smtp.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/smtp/smtp.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +157,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/internal/config/config.go</url>
-          <line>44</line>
+          <line>49</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

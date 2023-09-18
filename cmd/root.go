@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"app/internal/manager"
+	"app/pkg/aws"
 	"app/pkg/httpServer"
 	"app/pkg/logger"
 	"app/pkg/rabbitmq"
@@ -20,6 +21,7 @@ func SetupManager(
 	mqClient *rabbitmq.MQClient,
 	redisConn *redis.Conn,
 	smtPConn *smtp.SMTP,
+	awsServices *aws.Services,
 	manager *manager.Manager,
 ) {
 	lc.Append(fx.Hook{
@@ -28,6 +30,7 @@ func SetupManager(
 			manager.SetMsgBroker(mqClient)
 			manager.SetCacheConnection(redisConn)
 			manager.SetMailer(smtPConn)
+			manager.SetStorageProvider(awsServices.S3)
 			return nil
 		},
 		OnStop: func(ctx context.Context) error {
