@@ -1,7 +1,7 @@
 package rabbitmq
 
 import (
-	"app/internal/config"
+	"app/internal/model"
 	"github.com/doxanocap/pkg/lg"
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -11,7 +11,7 @@ type MQClient struct {
 	Queues map[string]amqp.Queue
 }
 
-func InitConnection(cfg *config.Cfg) *MQClient {
+func InitConnection(cfg *model.Config) *MQClient {
 	conn, err := amqp.Dial(cfg.RabbitDSN)
 	if err != nil {
 		return nil

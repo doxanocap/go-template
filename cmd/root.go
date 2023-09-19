@@ -4,7 +4,6 @@ import (
 	"app/internal/manager"
 	"app/pkg/aws"
 	"app/pkg/httpServer"
-	"app/pkg/logger"
 	"app/pkg/rabbitmq"
 	"app/pkg/redis"
 	"app/pkg/smtp"
@@ -12,7 +11,6 @@ import (
 	"github.com/doxanocap/pkg/lg"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/fx"
-	"go.uber.org/zap"
 )
 
 func SetupManager(
@@ -51,7 +49,7 @@ func RunServer(lc fx.Lifecycle, server *httpServer.Server, manager *manager.Mana
 		OnStart: func(context.Context) error {
 			go func() {
 				if err := server.Run(manager.Processor().REST().Handler().Engine()); err != nil {
-					logger.Log.Fatal("failed to run REST: %v", zap.Error(err))
+					lg.Fatalf("failed to run REST: %v", err)
 				}
 			}()
 			return nil

@@ -1,7 +1,7 @@
 package postgres
 
 import (
-	"app/internal/config"
+	"app/internal/model"
 	"context"
 	"fmt"
 	"github.com/doxanocap/pkg/lg"
@@ -17,15 +17,15 @@ const (
 	ChatMessages  = "chat_messages"
 )
 
-func getDSN(cfg *config.Cfg) string {
+func getDSN(cfg model.Psql) string {
 	return fmt.Sprintf(
 		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		cfg.PostgresHost, cfg.PostgresPort, cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDatabase, cfg.PostgresSSL)
+		cfg.PsqlHost, cfg.PsqlPort, cfg.PsqlUser, cfg.PsqlPassword, cfg.PsqlDatabase, cfg.PsqlSSL)
 }
 
-func InitConnection(cfg *config.Cfg) *pgxpool.Pool {
+func InitConnection(cfg *model.Config) *pgxpool.Pool {
 	ctx := context.Background()
-	connConfig, err := pgxpool.ParseConfig(getDSN(cfg))
+	connConfig, err := pgxpool.ParseConfig(getDSN(cfg.Psql))
 	if err != nil {
 		lg.Fatalf("failed to parse config -> %v", err)
 	}

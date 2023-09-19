@@ -3,6 +3,7 @@ package manager
 import (
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor"
+	"app/internal/model"
 	"app/pkg/redis"
 	"app/pkg/smtp"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -11,6 +12,7 @@ import (
 )
 
 type Manager struct {
+	cfg               *model.Config
 	pool              *pgxpool.Pool
 	cacheConn         *redis.Conn
 	storageProvider   processor.IStorageProvider
@@ -27,8 +29,14 @@ type Manager struct {
 	processorRunner sync.Once
 }
 
-func InitManager() *Manager {
-	return &Manager{}
+func InitManager(cfg *model.Config) *Manager {
+	return &Manager{
+		cfg: cfg,
+	}
+}
+
+func (m *Manager) Cfg() *model.Config {
+	return m.cfg
 }
 
 func (m *Manager) Repository() interfaces.IRepository {

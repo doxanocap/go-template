@@ -5,17 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/model/config.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/connection.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/manager.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/aws/aws.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/aws/aws.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/aws/s3.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/aws/s3.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/httpServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/httpServer/server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/logger/zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/zap.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/postgres/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/postgres/connection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/redis/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/redis.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -151,16 +156,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/config/config.go</url>
-          <line>49</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

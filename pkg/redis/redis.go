@@ -1,7 +1,7 @@
 package redis
 
 import (
-	"app/internal/config"
+	"app/internal/model"
 	"context"
 	"github.com/doxanocap/pkg/lg"
 	"github.com/go-redis/redis/v8"
@@ -13,12 +13,12 @@ type Conn struct {
 	keyPrefix string
 }
 
-func InitConnection(cfg *config.Cfg) *Conn {
+func InitConnection(cfg *model.Config) *Conn {
 	ctx := context.Background()
 	client := redis.NewClient(&redis.Options{
-		Addr:     cfg.RedisHost,
-		Password: cfg.RedisPassword,
-		DB:       cfg.RedisDatabase,
+		Addr:     cfg.Redis.Host,
+		Password: cfg.Redis.Password,
+		DB:       cfg.Redis.Database,
 	})
 
 	if err := client.Ping(ctx).Err(); err != nil {
@@ -27,7 +27,7 @@ func InitConnection(cfg *config.Cfg) *Conn {
 
 	return &Conn{
 		client:    client,
-		keyPrefix: cfg.RedisPrefix,
+		keyPrefix: cfg.Redis.Prefix,
 	}
 }
 

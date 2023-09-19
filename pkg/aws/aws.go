@@ -1,7 +1,7 @@
 package aws
 
 import (
-	"app/internal/config"
+	"app/internal/model"
 	"app/pkg/logger"
 	"context"
 	"fmt"
@@ -15,10 +15,10 @@ const contentType = "multipart/form-data"
 type Services struct {
 	S3 *S3Client
 
-	cfg *config.Cfg
+	cfg *model.Config
 }
 
-func InitServices(cfg *config.Cfg) *Services {
+func InitServices(cfg *model.Config) *Services {
 	s := &Services{
 		cfg: cfg,
 	}
@@ -33,9 +33,9 @@ func InitServices(cfg *config.Cfg) *Services {
 func (s *Services) InitS3() (*S3Client, error) {
 	ctx := context.Background()
 
-	minioClient, err := minio.New(s.cfg.AwsS3EndpointUrl, &minio.Options{
-		Creds:  credentials.NewStaticV4(s.cfg.AwsS3AccessKey, s.cfg.AwsS3SecretKey, ""),
-		Secure: s.cfg.AwsS3UseSSL,
+	minioClient, err := minio.New(s.cfg.AWS.S3.EndpointUrl, &minio.Options{
+		Creds:  credentials.NewStaticV4(s.cfg.AWS.S3.AccessKey, s.cfg.AWS.S3.SecretKey, ""),
+		Secure: s.cfg.AWS.S3.UseSSL,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to S3: %v", err)
@@ -43,7 +43,7 @@ func (s *Services) InitS3() (*S3Client, error) {
 	s3Client := &S3Client{
 		client:     minioClient,
 		log:        logger.Log.Named("[STORAGE][S3]"),
-		bucketName: s.cfg.AwsS3BucketName,
+		bucketName: s.cfg.AWS.S3.BucketName,
 	}
 
 	exists, err := s3Client.checkIfBucketExists(ctx, s3Client.bucketName)

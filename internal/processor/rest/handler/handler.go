@@ -4,7 +4,6 @@ import (
 	"app/internal/manager/interfaces"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
 	"net/http"
 	"sync"
 )
@@ -36,7 +35,7 @@ func (h *Handler) InitRoutes() {
 
 func (h *Handler) Engine() *gin.Engine {
 	h.engineRunner.Do(func() {
-		h.engine = InitEngine(viper.GetString("ENV_MODE"))
+		h.engine = InitEngine(h.manager.Cfg().App.Environment)
 	})
 	return h.engine
 }
