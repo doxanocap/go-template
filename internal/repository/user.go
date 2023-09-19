@@ -1,21 +1,13 @@
 package repository
 
 import (
+	"app/internal/cns"
 	"app/internal/model"
 	"context"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/zap"
-)
-
-const (
-	userTable         = "user"
-	userRowID         = "id"
-	emailColumn       = "email"
-	usernameColumn    = "username"
-	phoneNumberColumn = "phone_number"
-	passwordColumn    = "password"
 )
 
 type UserRepository struct {
@@ -35,17 +27,17 @@ func InitUserRepository(pool *pgxpool.Pool, log *zap.Logger) *UserRepository {
 func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (result *model.User, err error) {
 	result = &model.User{}
 	log := repo.log.Named("Create").With(
-		zap.String(emailColumn, obj.Email),
-		zap.String(usernameColumn, obj.Username),
-		zap.String(phoneNumberColumn, obj.PhoneNumber))
+		zap.String(cns.EmailColumn, obj.Email),
+		zap.String(cns.UsernameColumn, obj.Username),
+		zap.String(cns.PhoneNumberColumn, obj.PhoneNumber))
 
 	query := repo.builder.
-		Insert(userTable).
+		Insert(cns.UserTable).
 		Columns(
-			emailColumn,
-			usernameColumn,
-			phoneNumberColumn,
-			passwordColumn).
+			cns.EmailColumn,
+			cns.UsernameColumn,
+			cns.PhoneNumberColumn,
+			cns.PasswordColumn).
 		Values(
 			obj.Email,
 			obj.Username,
@@ -61,18 +53,39 @@ func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (resul
 		log.Error("failed", zap.Error(err))
 	}
 
-	return result, err
+	return
+}
+
+func (repo *UserRepository) FindByUUID(ctx context.Context, uuid string) (result *model.User, err error) {
+	result = &model.User{}
+	log := repo.log.Named("FindByID").With(
+		zap.String(cns.UserTableUUID, uuid))
+
+	query := repo.builder.
+		Select("*").
+		From(cns.UserTable).
+		Where(sq.Eq{cns.UserTableUUID: uuid})
+
+	raw, args := query.MustSql()
+	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
+
+	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
+	if err != nil {
+		log.Error("failed", zap.Error(err))
+	}
+
+	return
 }
 
 func (repo *UserRepository) FindByEmail(ctx context.Context, email string) (result *model.User, err error) {
 	result = &model.User{}
 	log := repo.log.Named("FindByEmail").With(
-		zap.Any(emailColumn, email))
+		zap.String(cns.EmailColumn, email))
 
 	query := repo.builder.
 		Select("*").
-		From(userTable).
-		Where(sq.Eq{emailColumn: email})
+		From(cns.UserTable).
+		Where(sq.Eq{cns.EmailColumn: email})
 
 	raw, args := query.MustSql()
 	log.Info("query", zap.String("raw", raw), zap.Any("args", args))

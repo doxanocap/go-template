@@ -1,30 +1,37 @@
 version: 2.1
 
 jobs:
+#  lint:
+#    docker:
+#      - image: golangci/golangci-lint:v1.37-alpine
+#    steps:
+#      - checkout
+#      - run: golangci-lint run
   build:
     working_directory: ~/project
     docker:
       - image: cimg/go:1.20.5
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - go-mod-v4-{{ checksum "go.sum" }}
+#      - restore_cache:
+#          keys:
+#            - go-mod-v4-{{ checksum "go.sum" }}
 
       - run:
           name: Install Dependencies
           command: go mod download
 
-      - save_cache:
-          key: go-mod-v4-{{ checksum "go.sum" }}
-          paths:
-            - ~/project
+#      - save_cache:
+#          key: go-mod-v4-{{ checksum "go.sum" }}
+#          paths:
+#            - ~/project
 
       - run:
           name: Run build
-          command: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main ./main.go
+          command: GOOS=linux GOARCH=amd64 go build -o app ./main.go
 
 workflows:
-  build-and-sync:
+  build-and-test:
     jobs:
+#      - lint
       - build

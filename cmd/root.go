@@ -3,38 +3,60 @@ package cmd
 import (
 	"app/internal/manager"
 	"app/pkg/aws"
-	"app/pkg/config"
 	"app/pkg/httpServer"
-	"app/pkg/logger"
-	"app/pkg/postgres"
+	"app/pkg/rabbitmq"
+	"app/pkg/redis"
+	"app/pkg/smtp"
 	"context"
-	"github.com/spf13/viper"
-	"go.uber.org/zap"
+	"github.com/doxanocap/pkg/lg"
+	"github.com/jackc/pgx/v4/pgxpool"
+	"go.uber.org/fx"
 )
 
-func Run() {
-	config.InitConf()
-	logger.Init(viper.GetBool("IS_PROD"), viper.GetBool("IS_JSON"))
+func SetupManager(
+	lc fx.Lifecycle,
+	pool *pgxpool.Pool,
+	mqClient *rabbitmq.MQClient,
+	redisConn *redis.Conn,
+	smtPConn *smtp.SMTP,
+	awsServices *aws.Services,
+	manager *manager.Manager,
+) {
+	lc.Append(fx.Hook{
+		OnStart: func(ctx context.Context) error {
+			manager.SetPool(pool)
+			manager.SetMsgBroker(mqClient)
+			manager.SetCacheConnection(redisConn)
+			manager.SetMailer(smtPConn)
+			manager.SetStorageProvider(awsServices.S3)
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			pool.Close()
+			if err := mqClient.Ch.Close(); err != nil {
+				return err
+			}
+			if err := redisConn.Close(); err != nil {
+				return err
+			}
+			return nil
+		},
+	})
+}
 
-	conn, err := postgres.Connect(context.Background(), viper.GetString("PG_DSN"))
-	if err != nil {
-		logger.Log.Fatal("failed connection to postgres:", zap.Error(err))
-	}
-
-	amazonWebServices := aws.Init()
-	err = amazonWebServices.InitS3()
-	if err != nil {
-		logger.Log.Fatal("failed connection to AWS: ", zap.Error(err))
-	}
-
-	app := &App{
-		Server:  httpServer.New(),
-		Manager: manager.InitManager(),
-	}
-
-	app.Manager.SetPool(conn)
-	app.Manager.SetStorageProvider(amazonWebServices.S3)
-
-	// run redis and other low level services without which app should not launch
-	app.Init()
+func RunServer(lc fx.Lifecycle, server *httpServer.Server, manager *manager.Manager) {
+	lc.Append(fx.Hook{
+		OnStart: func(context.Context) error {
+			go func() {
+				if err := server.Run(manager.Processor().REST().Handler().Engine()); err != nil {
+					lg.Fatalf("failed to run REST: %v", err)
+				}
+			}()
+			return nil
+		},
+		OnStop: func(ctx context.Context) error {
+			lg.Info("Stopping server...")
+			return server.Shutdown(ctx)
+		},
+	})
 }

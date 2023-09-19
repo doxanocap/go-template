@@ -3,14 +3,21 @@ package manager
 import (
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor"
+	"app/internal/model"
+	"app/pkg/redis"
+	"app/pkg/smtp"
 	"github.com/jackc/pgx/v4/pgxpool"
 	_ "github.com/jackc/pgx/v4/pgxpool"
 	"sync"
 )
 
 type Manager struct {
-	pool            *pgxpool.Pool
-	storageProvider processor.IStorageProvider
+	cfg               *model.Config
+	pool              *pgxpool.Pool
+	cacheConn         *redis.Conn
+	storageProvider   processor.IStorageProvider
+	msgBrokerProvider processor.IMsgBrokerProvider
+	mailerProvider    processor.IMailerProvider
 
 	service       interfaces.IService
 	serviceRunner sync.Once
@@ -22,8 +29,14 @@ type Manager struct {
 	processorRunner sync.Once
 }
 
-func InitManager() *Manager {
-	return &Manager{}
+func InitManager(cfg *model.Config) *Manager {
+	return &Manager{
+		cfg: cfg,
+	}
+}
+
+func (m *Manager) Cfg() *model.Config {
+	return m.cfg
 }
 
 func (m *Manager) Repository() interfaces.IRepository {
@@ -53,4 +66,15 @@ func (m *Manager) SetPool(pool *pgxpool.Pool) {
 
 func (m *Manager) SetStorageProvider(storageProvider processor.IStorageProvider) {
 	m.storageProvider = storageProvider
+}
+
+func (m *Manager) SetMsgBroker(msgBrokerProvider processor.IMsgBrokerProvider) {
+	m.msgBrokerProvider = msgBrokerProvider
+}
+
+func (m *Manager) SetCacheConnection(cacheConn *redis.Conn) {
+	m.cacheConn = cacheConn
+}
+func (m *Manager) SetMailer(mailer *smtp.SMTP) {
+	m.mailerProvider = mailer
 }

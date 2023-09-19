@@ -5,15 +5,20 @@ func (h *Handler) AddRoutesV1() {
 
 	auth := v1.Group("/auth")
 	{
-		auth.POST("/signIn", h.ctl.Auth().SignIn)
-		auth.POST("/signUp", h.ctl.Auth().SignUp)
-		auth.GET("/refresh", h.ctl.Auth().Refresh)
-		auth.GET("/logout", h.ctl.Auth().Logout)
+		auth.POST("/signIn", h.SignIn)
+		auth.POST("/signUp", h.SignUp)
+		auth.GET("/refresh", h.Refresh)
+		auth.GET("/logout", h.Logout)
 	}
 
 	storage := v1.Group("/storage")
 	{
-		storage.POST("/:filename", h.ctl.Storage().SaveFile)
+		storage.POST("/:filename", h.SaveFile)
 		storage.DELETE("/:id")
+	}
+
+	ws := v1.Group("/ws")
+	{
+		ws.GET("/pool", h.Pool)
 	}
 }

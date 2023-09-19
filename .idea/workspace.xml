@@ -5,34 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23fdc24c-0931-465e-93c5-bc6bb06c0c28" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/cns/errs/checks.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cns/errs/msg.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers/auth.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/manager/interfaces/service/user.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/service/auth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/model/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/root.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/root.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/cns/errs/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cns/errs/errors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/processor/rest/controllers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/repository/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/service/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/service/auth.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/manager/interfaces/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/interfaces/manager.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/manager/manager.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/manager.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/manager/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/manager/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/model/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/controllers/auth.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/routes.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/rest.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/rest.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/runner/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/repository/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/repository/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/storage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/service/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/service/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/processor/rest/handler/handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/aws/aws.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/aws/aws.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/httpServer/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/httpServer/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/logger/zap.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/logger/zap.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/postgres/connection.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/postgres/connection.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/rabbitmq/rabbitmq.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/redis/redis.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/redis/redis.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +43,10 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2RKRZcsdyPKRSVtVE6d2ZUaqi6p" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -67,16 +60,20 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.automatic.dependencies.download&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/eldos/go/src/github.com/doxanocap/projects/exchange-api/auth&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/eldos/go/src/github.com/doxanocap/projects/go-template/deployment&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -85,12 +82,15 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\deployment" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\config" />
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\middlewares" />
       <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\handler" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\processor\rest\runner" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\work\Roboto.kz\portal-services\internal\cns\errors" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\work\Roboto.kz\portal-services\internal\manager\interfaces\processor\rest" />
-      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\work\Roboto.kz\portal-services\internal\manager\interfaces\processor\rest\controllers" />
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\internal\manager\interfaces\processor" />
+      <recent name="C:\Users\eldos\go\src\github.com\doxanocap\projects\go-template\cmd" />
     </key>
   </component>
   <component name="RunManager">
@@ -131,8 +131,17 @@
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="CURRENT_VAGRANT" />
+    <option name="myConnectionId" value="" />
+  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

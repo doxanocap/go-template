@@ -11,10 +11,10 @@ import (
 )
 
 const (
-	storageTable = "storage"
-	storageRowID = "id"
-	keyColumn    = "key"
-	formatColumn = "format"
+	storageTable   = "storage"
+	storageTableID = "id"
+	keyColumn      = "key"
+	formatColumn   = "format"
 )
 
 type StorageRepository struct {
@@ -32,6 +32,7 @@ func InitStorageRepository(pool *pgxpool.Pool, log *zap.Logger) *StorageReposito
 }
 
 func (repo *StorageRepository) Create(ctx context.Context, key, format string) (result *model.Storage, err error) {
+
 	result = &model.Storage{}
 	log := repo.log.Named("Create").With(
 		zap.String(keyColumn, key),

@@ -4,7 +4,7 @@ import (
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor/rest"
 	"app/internal/processor/rest/handler"
-	"app/internal/processor/rest/runner"
+	"app/internal/processor/rest/middlewares"
 	"sync"
 )
 
@@ -14,10 +14,7 @@ type REST struct {
 	handler       rest.IHandlerManager
 	handlerRunner sync.Once
 
-	controllers       rest.IControllersManager
-	controllersRunner sync.Once
-
-	middlewares       rest.IMiddlewaresManager
+	middlewares       rest.IMiddlewareManager
 	middlewaresRunner sync.Once
 }
 
@@ -29,21 +26,14 @@ func Init(manager interfaces.IManager) *REST {
 
 func (r *REST) Handler() rest.IHandlerManager {
 	r.handlerRunner.Do(func() {
-		r.handler = handler.InitHandler(r.Controllers())
+		r.handler = handler.InitHandler(r.manager)
 	})
 	return r.handler
 }
 
-func (r *REST) Controllers() rest.IControllersManager {
-	r.controllersRunner.Do(func() {
-		r.controllers = runner.InitControllers(r.manager)
-	})
-	return r.controllers
-}
-
-func (r *REST) Middlewares() rest.IMiddlewaresManager {
+func (r *REST) Middlewares() rest.IMiddlewareManager {
 	r.middlewaresRunner.Do(func() {
-		r.middlewares = runner.InitMiddlewares(r.manager)
+		r.middlewares = middlewares.InitMiddlewares(r.manager)
 	})
 	return r.middlewares
 }
