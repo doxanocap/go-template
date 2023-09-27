@@ -5,6 +5,7 @@ import (
 	"app/internal/manager/interfaces/processor/rest"
 	"app/internal/processor/rest/handler"
 	"app/internal/processor/rest/middlewares"
+	"app/pkg/logger"
 	"sync"
 )
 
@@ -26,7 +27,7 @@ func Init(manager interfaces.IManager) *REST {
 
 func (r *REST) Handler() rest.IHandlerManager {
 	r.handlerRunner.Do(func() {
-		r.handler = handler.InitHandler(r.manager)
+		r.handler = handler.InitHandler(r.manager, logger.Log.Named("[HANDLER]"))
 	})
 	return r.handler
 }

@@ -1,10 +1,11 @@
 package repository
 
 import (
-	"app/internal/cns"
 	"app/internal/model"
 	"context"
+
 	sq "github.com/Masterminds/squirrel"
+	"github.com/doxanocap/pkg/errs"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/zap"
@@ -26,18 +27,13 @@ func InitUserRepository(pool *pgxpool.Pool, log *zap.Logger) *UserRepository {
 
 func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (result *model.User, err error) {
 	result = &model.User{}
-	log := repo.log.Named("Create").With(
-		zap.String(cns.EmailColumn, obj.Email),
-		zap.String(cns.UsernameColumn, obj.Username),
-		zap.String(cns.PhoneNumberColumn, obj.PhoneNumber))
-
 	query := repo.builder.
-		Insert(cns.UserTable).
+		Insert("user").
 		Columns(
-			cns.EmailColumn,
-			cns.UsernameColumn,
-			cns.PhoneNumberColumn,
-			cns.PasswordColumn).
+			"email",
+			"username",
+			"phone_number",
+			"password").
 		Values(
 			obj.Email,
 			obj.Username,
@@ -46,11 +42,10 @@ func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (resul
 		Suffix("RETURNING *")
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
 
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user.Create", err)
 	}
 
 	return
@@ -58,20 +53,16 @@ func (repo *UserRepository) Create(ctx context.Context, obj model.SignUp) (resul
 
 func (repo *UserRepository) FindByUUID(ctx context.Context, uuid string) (result *model.User, err error) {
 	result = &model.User{}
-	log := repo.log.Named("FindByID").With(
-		zap.String(cns.UserTableUUID, uuid))
-
 	query := repo.builder.
 		Select("*").
-		From(cns.UserTable).
-		Where(sq.Eq{cns.UserTableUUID: uuid})
+		From("user").
+		Where(sq.Eq{"uuid": uuid})
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
 
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user.FindByUUID", err)
 	}
 
 	return
@@ -79,20 +70,15 @@ func (repo *UserRepository) FindByUUID(ctx context.Context, uuid string) (result
 
 func (repo *UserRepository) FindByEmail(ctx context.Context, email string) (result *model.User, err error) {
 	result = &model.User{}
-	log := repo.log.Named("FindByEmail").With(
-		zap.String(cns.EmailColumn, email))
-
 	query := repo.builder.
 		Select("*").
-		From(cns.UserTable).
-		Where(sq.Eq{cns.EmailColumn: email})
+		From("user").
+		Where(sq.Eq{"email": email})
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user.FindByEmail", err)
 	}
 
 	return

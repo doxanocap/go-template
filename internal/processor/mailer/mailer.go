@@ -1,8 +1,10 @@
 package mailer
 
 import (
-	"app/internal/cns"
 	IProcessor "app/internal/manager/interfaces/processor"
+	"fmt"
+	"github.com/doxanocap/pkg/errs"
+
 	"go.uber.org/zap"
 )
 
@@ -19,9 +21,12 @@ func Init(provider IProcessor.IMailerProvider, log *zap.Logger) *Mailer {
 }
 
 func (m *Mailer) Send(address string, to []string, message []byte) error {
-	m.log.Named("Send").With(
-		zap.String(cns.MailingAddress, address),
-		zap.Strings(cns.MailSentTo, to)).Info("message")
+	log := m.log.Named("[Send]")
 
-	return m.provider.Send(address, to, message)
+	err := m.provider.Send(address, to, message)
+	if err != nil {
+		log.Error(fmt.Sprintf("mailer provider: %s", err))
+		err = errs.Wrap("processor.mailer.Send", err)
+	}
+	return err
 }

@@ -1,31 +1,36 @@
 package handler
 
 import (
+	"app/internal/consts"
 	"app/internal/model"
-	"github.com/gin-gonic/gin"
+	"fmt"
 	"net/http"
+
+	"github.com/doxanocap/pkg/errs"
+	"github.com/gin-gonic/gin"
 )
 
 func (h *Handler) SaveFile(ctx *gin.Context) {
+	log := h.log.Named("[SaveFile]")
+
 	formFile, err := ctx.FormFile("file")
 	if err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
+		log.Error(fmt.Sprintf("handle file", err))
+		ctx.JSON(http.StatusBadRequest, model.HttpBadRequest)
 		return
 	}
 
 	key := ctx.Param("filename")
-	if key == "" {
-		ctx.JSON(http.StatusBadRequest, gin.H{})
+	if consts.IsNilString(key)  {
+		log.Error("invalid filename")
+		ctx.JSON(http.StatusBadRequest, model.HttpBadRequest)
 		return
 	}
 
 	file, err := formFile.Open()
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
+		log.Error(fmt.Sprintf("open file: %s", err))
+		ctx.JSON(http.StatusConflict, model.HttpConflictError)
 		return
 	}
 
@@ -37,9 +42,14 @@ func (h *Handler) SaveFile(ctx *gin.Context) {
 	})
 
 	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
+		log.Error(fmt.Sprintf("service.storage.SaveFile: %s", err))
+
+		code := errs.UnmarshalCode(err)
+		if code == http.StatusConflict {
+			ctx.JSON(code, model.ErrInvalidFileFormat)
+			return
+		}		
+		ctx.JSON(http.StatusInternalServerError, model.HttpInternalServerError)
 		return
 	}
 

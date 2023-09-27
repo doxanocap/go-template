@@ -1,14 +1,16 @@
 package repository
 
 import (
-	"app/internal/cns"
 	"app/internal/model"
 	"context"
+
+	"time"
+
 	sq "github.com/Masterminds/squirrel"
+	"github.com/doxanocap/pkg/errs"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/zap"
-	"time"
 )
 
 type UserParamsRepository struct {
@@ -27,16 +29,12 @@ func InitUserParamsRepository(pool *pgxpool.Pool, log *zap.Logger) *UserParamsRe
 
 func (repo *UserParamsRepository) Create(ctx context.Context, ID int64, refreshToken string) (result *model.UserParams, err error) {
 	result = &model.UserParams{}
-	log := repo.log.Named("Create").With(
-		zap.Int64(cns.UserParamsTableID, ID),
-		zap.String(cns.RefreshTokenColumn, refreshToken))
-
 	query := repo.builder.
-		Insert(cns.UserParamsTable).
+		Insert("user_params").
 		Columns(
-			cns.UserParamsTableID,
-			cns.RefreshTokenColumn,
-			cns.UpdatedAtColumn).
+			"user_params",
+			"refresh_token",
+			"updated_at").
 		Values(
 			ID,
 			refreshToken,
@@ -45,32 +43,24 @@ func (repo *UserParamsRepository) Create(ctx context.Context, ID int64, refreshT
 		Suffix("RETURNING *")
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user_params.Create", err)
 	}
 
 	return
 }
 
 func (repo *UserParamsRepository) FindByID(ctx context.Context, ID int64) (result *model.UserParams, err error) {
-	result = &model.UserParams{}
-	log := repo.log.Named("FindByID").With(
-		zap.Int64(cns.UserParamsTableID, ID))
-
 	query := repo.builder.
 		Select("*").
-		From(cns.UserParamsTable).
-		Where(sq.Eq{cns.UserParamsTableID: ID})
+		From("user_params").
+		Where(sq.Eq{"token_id": ID})
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user_params.FindByID", err)
 	}
 
 	return
@@ -78,44 +68,33 @@ func (repo *UserParamsRepository) FindByID(ctx context.Context, ID int64) (resul
 
 func (repo *UserParamsRepository) FindByToken(ctx context.Context, refreshToken string) (result *model.UserParams, err error) {
 	result = &model.UserParams{}
-	log := repo.log.Named("FindByToken").With(
-		zap.String(cns.RefreshTokenColumn, refreshToken))
-
 	query := repo.builder.
 		Select("*").
-		From(cns.UserParamsTable).
-		Where(sq.Eq{cns.RefreshTokenColumn: refreshToken})
+		From("user_params").
+		Where(sq.Eq{"refresh_token": refreshToken})
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user_params.FindByToken", err)
 	}
 
 	return
 }
 
 func (repo *UserParamsRepository) Update(ctx context.Context, ID int64, refreshToken string) (err error) {
-	log := repo.log.Named("FindByToken").With(
-		zap.Int64(cns.UserParamsTableID, ID),
-		zap.String(cns.RefreshTokenColumn, refreshToken))
-
 	query := repo.builder.
-		Update(cns.UserParamsTable).
+		Update("user_params").
 		SetMap(map[string]interface{}{
-			cns.RefreshTokenColumn: refreshToken,
-			cns.UpdatedAtColumn:    time.Now(),
+			"refresh_token": refreshToken,
+			"updated_at":    time.Now(),
 		}).
-		Where(sq.Eq{cns.UserParamsTableID: ID})
+		Where(sq.Eq{"token_id": ID})
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	_, err = repo.pool.Exec(ctx, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return errs.Wrap("repository.user_params.Update", err)
 	}
 
 	return
@@ -123,25 +102,15 @@ func (repo *UserParamsRepository) Update(ctx context.Context, ID int64, refreshT
 
 func (repo *UserParamsRepository) DeleteToken(ctx context.Context, refreshToken string) (result *model.UserParams, err error) {
 	result = &model.UserParams{}
-	log := repo.log.Named("FindByToken").With(
-		zap.String(cns.RefreshTokenColumn, refreshToken))
-
 	query := repo.builder.
-		Delete(cns.UserParamsTable).
-		Where(sq.Eq{cns.RefreshTokenColumn: refreshToken}).
+		Delete("user_params").
+		Where(sq.Eq{"refresh_token": refreshToken}).
 		Suffix("RETURNING *")
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
-	_, err = repo.pool.Exec(ctx, raw, args...)
-	if err != nil {
-		log.Error("failed", zap.Error(err))
-	}
-
 	err = pgxscan.Select(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
+		return nil, errs.Wrap("repository.user_params.DeleteToken", err)
 	}
 
 	return

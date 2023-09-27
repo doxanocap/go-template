@@ -1,4 +1,4 @@
-package cns
+package consts
 
 func IsNilString(str string) bool {
 	return str == NilString

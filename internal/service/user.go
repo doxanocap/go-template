@@ -1,11 +1,12 @@
 package service
 
 import (
-	"app/internal/cns/errs"
 	"app/internal/manager/interfaces"
 	"app/internal/model"
 	"context"
 	"encoding/json"
+
+	"github.com/doxanocap/pkg/errs"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/spf13/viper"
 	"golang.org/x/crypto/bcrypt"
@@ -27,15 +28,14 @@ func (us *UserService) Create(ctx context.Context, body model.SignUp) (result *m
 		return
 	}
 	if found != nil {
-		err = errs.HttpConflict("already exists")
-		return
+		return nil, model.ErrUserAlreadyExist
 	}
 	salt, _ := bcrypt.GenerateFromPassword([]byte(""), 10)
 
 	passwordWithSalt := append(body.Password, salt...)
 	hashedPassword, err := bcrypt.GenerateFromPassword(passwordWithSalt, bcrypt.DefaultCost)
 	if err != nil {
-		return
+		return nil, errs.Wrap("generate password hash", err)
 	}
 	body.Password = hashedPassword
 
@@ -60,12 +60,11 @@ func (us *UserService) Authenticate(ctx context.Context, body model.SignIn) (res
 		return
 	}
 	if user == nil {
-		err = errs.HttpNotFound("user")
-		return
+		return nil, model.ErrUserNotFound
 	}
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(body.Password))
 	if err != nil {
-		return
+		return nil, errs.Wrap("compare password and hash", err)
 	}
 
 	userDTO := model.ParseUserDTO(*user)
@@ -88,15 +87,14 @@ func (us *UserService) Refresh(ctx context.Context, refreshToken string) (result
 	}
 
 	if prevParams == nil {
-		err = errs.HttpNotFound("token")
-		return
+		return nil, model.ErrTokenNotFound
 	}
 
 	token, err := jwt.ParseWithClaims(prevParams.RefreshToken, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(viper.GetString("JWT_REFRESH_SECRET_KEY")), nil
 	})
 	if err != nil {
-		return
+		return nil, errs.Wrap("parse token", err)
 	}
 
 	user := &model.UserDTO{}
@@ -104,11 +102,10 @@ func (us *UserService) Refresh(ctx context.Context, refreshToken string) (result
 
 	err = json.Unmarshal([]byte(claims.Issuer), user)
 	if err != nil {
-		return
+		return nil, errs.Wrap("unmarshal issuer", err)
 	}
 	if !ok || !token.Valid || user == nil {
-		err = errs.HttpConflict("invalid token")
-		return
+		return nil, model.ErrInvalidToken
 	}
 
 	result, err = us.manager.Service().Auth().NewPairTokens(*user)
@@ -117,7 +114,7 @@ func (us *UserService) Refresh(ctx context.Context, refreshToken string) (result
 	}
 
 	if err := us.manager.Service().User().SaveToken(ctx, (*prevParams).TokenID, (*result).RefreshToken); err != nil {
-		return nil, err
+		return nil, errs.Wrap("service.user.SaveToken", err)
 	}
 
 	return
@@ -129,7 +126,7 @@ func (us *UserService) Logout(ctx context.Context, refreshToken string) (err err
 		return
 	}
 	if result == nil {
-		return errs.HttpNotFound("token")
+		return model.ErrTokenNotFound
 	}
 	return
 }

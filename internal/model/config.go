@@ -23,6 +23,9 @@ type App struct {
 type Token struct {
 	RefreshSecret string `env:"REFRESH_TOKEN_SECRET"`
 	AccessSecret  string `env:"ACCESS_TOKEN_SECRET"`
+	MaxAge        int    `env:"TOKEN_MAX_AGE"`
+	Path          string `env:"TOKEN_PATH"`
+	Domain        string `env:"TOKEN_DOMAIN"`
 }
 
 type Psql struct {

@@ -2,31 +2,39 @@ package handler
 
 import (
 	"app/internal/manager/interfaces"
+	"app/internal/model"
 	"app/internal/processor/rest/utils"
-	"net/http"
-	"sync"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type Handler struct {
-	Engine       *gin.Engine
-	manager      interfaces.IManager
+	engine *gin.Engine
+
+	log     *zap.Logger
+	cfg     *model.Config
+	manager interfaces.IManager
 }
 
-func InitHandler(manager interfaces.IManager) *Handler {
+func InitHandler(manager interfaces.IManager, log *zap.Logger) *Handler {
 	newHandler := &Handler{
+		log:     log,
 		manager: manager,
-		Engine: utils.InitEngine(manager.Cfg().App.Environment),
+		cfg:     manager.Cfg(),
 	}
 
+	newHandler.engine = utils.InitEngine(newHandler.cfg.Environment)
 	newHandler.InitRoutes()
 	return newHandler
 }
 
+func (h *Handler) Engine() *gin.Engine {
+	return h.engine
+}
+
 func (h *Handler) InitRoutes() {
-	h.Engine.GET("/healthcheck", func(ctx *gin.Context) {
+	h.Engine().GET("/healthcheck", func(ctx *gin.Context) {
 		ctx.JSON(200, gin.H{"message": "ok"})
 	})
 

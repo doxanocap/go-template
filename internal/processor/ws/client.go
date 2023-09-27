@@ -1,7 +1,7 @@
 package ws
 
 import (
-	"app/internal/cns"
+	"app/internal/consts"
 	"app/internal/manager/interfaces"
 	"app/internal/manager/interfaces/processor/ws"
 	"bytes"
@@ -73,7 +73,7 @@ func (c *Client) Reader() {
 }
 
 func (c *Client) Writer() {
-	ticker := time.NewTicker(cns.WebsocketPingPeriod)
+	ticker := time.NewTicker(consts.WebsocketPingPeriod)
 
 	defer func() {
 		ticker.Stop()
@@ -86,7 +86,7 @@ func (c *Client) Writer() {
 	for {
 		select {
 		case message, ok := <-c.send:
-			err := c.conn.SetWriteDeadline(time.Now().Add(cns.WebsocketWriteWait))
+			err := c.conn.SetWriteDeadline(time.Now().Add(consts.WebsocketWriteWait))
 			if err != nil {
 				c.log.Error("msg write deadline: ", zap.Error(err))
 				return
@@ -108,7 +108,7 @@ func (c *Client) Writer() {
 			}
 
 		case <-ticker.C:
-			err := c.conn.SetWriteDeadline(time.Now().Add(cns.WebsocketWriteWait))
+			err := c.conn.SetWriteDeadline(time.Now().Add(consts.WebsocketWriteWait))
 			if err != nil {
 				c.log.Error("ticker write deadline: ", zap.Error(err))
 				return
@@ -131,7 +131,7 @@ func (c *Client) readMessage() ([]byte, error) {
 		}
 		return nil, err
 	}
-	message = bytes.TrimSpace(bytes.Replace(message, cns.ByteNewLine, cns.ByteSpace, -1))
+	message = bytes.TrimSpace(bytes.Replace(message, consts.ByteNewLine, consts.ByteSpace, -1))
 	return message, nil
 }
 
@@ -152,7 +152,7 @@ func (c *Client) writeMessage(message []byte) error {
 	n := len(c.send)
 	for i := 0; i < n; i++ {
 		msg := <-c.send
-		msg = append(cns.ByteNewLine, msg...)
+		msg = append(consts.ByteNewLine, msg...)
 		if _, err := w.Write(message); err != nil {
 			return err
 		}
@@ -163,14 +163,14 @@ func (c *Client) writeMessage(message []byte) error {
 }
 
 func (c *Client) setReadParams() {
-	c.conn.SetReadLimit(cns.WebsocketMaxMessageSize)
-	err := c.conn.SetReadDeadline(time.Now().Add(cns.WebsocketPongWait))
+	c.conn.SetReadLimit(consts.WebsocketMaxMessageSize)
+	err := c.conn.SetReadDeadline(time.Now().Add(consts.WebsocketPongWait))
 	if err != nil {
 		c.log.Error("handshake read deadline: ", zap.Error(err))
 		return
 	}
 	c.conn.SetPongHandler(func(string) error {
-		err := c.conn.SetReadDeadline(time.Now().Add(cns.WebsocketPongWait))
+		err := c.conn.SetReadDeadline(time.Now().Add(consts.WebsocketPongWait))
 		if err != nil {
 			c.log.Error("pong read deadline: ", zap.Error(err))
 			return err

@@ -1,13 +1,11 @@
 package logger
 
 import (
-	"app/internal/cns"
+	"app/internal/consts"
 	"app/internal/model"
-	"os"
-)
-
-import (
 	"context"
+	"os"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -17,7 +15,7 @@ type ExtractContextFunc func(ctx context.Context) (key string, value interface{}
 var Log *zap.Logger
 
 func InitLogger(cfg *model.Config) *zap.Logger {
-	Log = initLogger(cfg.App.Version == cns.AppProductionEnv, cfg.LogJSON)
+	Log = initLogger(cfg.App.Version == consts.AppProductionEnv, cfg.LogJSON)
 	return Log
 }
 

@@ -1,4 +1,4 @@
-package cns
+package consts
 
 import "time"
 
@@ -32,24 +32,11 @@ const (
 
 // Postgres
 const (
-	UserTable         = "user"
-	UserTableID       = "id"
-	UserTableUUID     = "uuid"
-	EmailColumn       = "email"
-	UsernameColumn    = "username"
-	PhoneNumberColumn = "phone_number"
-	PasswordColumn    = "password"
-
 	StorageTable   = "storage"
 	StorageTableID = "id"
 	KeyColumn      = "key"
 	FormatColumn   = "format"
 
-	UserParamsTable    = "user_params"
-	UserParamsTableID  = "token_id"
-	RefreshTokenColumn = "refresh_token"
-	UpdatedAtColumn    = "updated_at"
-	CreatedAtColumn    = "create_at"
 )
 
 // Mailer

@@ -1,20 +1,14 @@
 package repository
 
 import (
-	"app/internal/cns/errs"
 	"app/internal/model"
 	"context"
+
 	"github.com/Masterminds/squirrel"
+	"github.com/doxanocap/pkg/errs"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"go.uber.org/zap"
-)
-
-const (
-	storageTable   = "storage"
-	storageTableID = "id"
-	keyColumn      = "key"
-	formatColumn   = "format"
 )
 
 type StorageRepository struct {
@@ -32,28 +26,18 @@ func InitStorageRepository(pool *pgxpool.Pool, log *zap.Logger) *StorageReposito
 }
 
 func (repo *StorageRepository) Create(ctx context.Context, key, format string) (result *model.Storage, err error) {
-
 	result = &model.Storage{}
-	log := repo.log.Named("Create").With(
-		zap.String(keyColumn, key),
-		zap.String(formatColumn, format))
-
 	query := repo.builder.
-		Insert(storageTable).
-		Columns(keyColumn, formatColumn).
+		Insert("storage").
+		Columns("key", "format").
 		Values(key, format).
 		Suffix("RETURNING *")
 
 	raw, args := query.MustSql()
-	log.Info("query", zap.String("raw", raw), zap.Any("args", args))
-
 	err = pgxscan.Get(ctx, repo.pool, result, raw, args...)
 	if err != nil {
-		log.Error("failed", zap.Error(err))
-		return
+		return nil, errs.Wrap("repository.storage.Create", err)
 	}
-	if result == nil {
-		return nil, errs.EmptyResult()
-	}
+
 	return
 }

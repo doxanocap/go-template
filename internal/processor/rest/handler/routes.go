@@ -5,8 +5,8 @@ func (h *Handler) AddRoutesV1() {
 
 	auth := v1.Group("/auth")
 	{
-		auth.POST("/signIn", h.SignIn)
-		auth.POST("/signUp", h.SignUp)
+		auth.POST("/sign-in", h.SignIn)
+		auth.POST("/sign-up", h.SignUp)
 		auth.GET("/refresh", h.Refresh)
 		auth.GET("/logout", h.Logout)
 	}

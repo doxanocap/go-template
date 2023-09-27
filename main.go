@@ -16,12 +16,18 @@ import (
 	"go.uber.org/fx"
 )
 
+//	@title			go-template
+//	@version		1.0
+//	@description	Swagger документация для go-template.
+//	@termsOfService	http://swagger.io/terms/
+
+// @host		localhost:8080
+// @BasePath	/
 func main() {
 	app := fx.New(
 		fx.NopLogger,
 		fx.Provide(
 			config.InitConfig,
-			logger.InitLogger,
 			postgres.InitConnection,
 			rabbitmq.InitConnection,
 			redis.InitConnection,
@@ -31,6 +37,7 @@ func main() {
 			httpServer.InitServer,
 		),
 		fx.Invoke(
+			logger.InitLogger,
 			cmd.SetupManager,
 			cmd.RunServer,
 			banner.Default,
